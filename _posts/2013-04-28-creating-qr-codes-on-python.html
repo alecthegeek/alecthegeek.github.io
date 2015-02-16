@@ -1,0 +1,45 @@
+---
+layout: post
+title: Creating QR codes on Python
+tags:
+- Python
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '451289'
+  _publicize_pending: '1'
+  jabber_published: '1367131174'
+  _wpas_done_2202654: '1'
+  _publicize_done_external: a:1:{s:7:"twitter";a:1:{i:286602170;b:1;}}
+  publicize_reach: a:2:{s:7:"twitter";a:1:{i:2202654;i:262;}s:2:"wp";a:1:{i:0;i:10;}}
+  publicize_twitter_user: alecthegeek
+  email_notification: '1367131178'
+  _wpas_done_10808: '1'
+  _wpas_skip_2202654: '1'
+  _wpas_skip_10808: '1'
+---
+If you want to create you own QR code then here is a simple Python script that will create PNG images for you.
+
+First you need to install the Python Image Library and QR Code library. On my OS X system that was easy
+
+``` bash
+$ pip install qrcode
+```
+
+Then you can create the following simple Pyton script.
+
+``` python
+#! /usr/bin/env python
+
+import sys
+import qrcode
+
+qrcode.make("".join(sys.stdin.readlines())).save("/dev/stdout","png")
+```
+
+It reads any text from it's standard input and writes a graphic image to the standard output. So you can do this
+
+``` bash
+$ echo "My QR Text"|makeQR >  myqr.png
+```

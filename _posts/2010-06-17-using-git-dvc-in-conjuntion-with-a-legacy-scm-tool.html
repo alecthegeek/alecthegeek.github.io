@@ -1,0 +1,31 @@
+---
+layout: post
+title: Using Git DVC in conjuntion with a legacy SCM tool
+tags:
+- Git
+- Software Configuration Management
+- Software Development
+- Work Practices
+status: publish
+type: post
+published: true
+meta:
+  email_notification: '1276742863'
+  jabber_published: '1276742863'
+  _edit_last: '451289'
+---
+Often developers get a limited choice on the Version Control (VC) or Software Configuration management tool they have to use when working on a project. However even when the Git (the Distributed Version Control tool) does not interface with the project tool there is value in using Git for a personal workflow. This can work as follows.
+<ol>
+	<li>Fetch a copy of the working code needed to make your change</li>
+	<li>Initialise a new Git repo in your working copy and add the code</li>
+	<li>Now checkout a new git branch for your work</li>
+	<li>hack hack hack test test....</li>
+	<li>Commit</li>
+	<li>Switch to master branch</li>
+	<li>Fetch from the project tool again.</li>
+	<li>Add changes and commit</li>
+	<li>Review differences, rebase or merge as required.</li>
+	<li>Verify project tool still at same state from step 7</li>
+	<li>Upload/ check in changes to project tool. You can use the output from git log as the basis of your commit message for the legacy tool</li>
+</ol>
+Rinse and repeat

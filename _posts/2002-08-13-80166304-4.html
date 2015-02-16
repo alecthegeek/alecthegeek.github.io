@@ -1,0 +1,18 @@
+---
+layout: post
+title: '80166304'
+tags: []
+status: publish
+type: post
+published: true
+meta: {}
+---
+Been thinking about my requirements management tool. The problem has been about architecture. I need something that will version each requirement and support the maintainance of arbitrary links between requirements (plus other entities such as projects etc.)
+
+The need to maintain complex links would seem to argue the use of a relational database, but the need for versions points to a version repository such as <a href="http://subversion.tigris.org/">Subversion</a> with embedded html links, this implies <a href="http://webdav.org/wg/">webdav</a> or <a href="http://webdav.org/wg/#dv">Delta-V</a> server perhaps.
+
+Problems with this
+1) If I use an RDBMS then I risk locking users into a single product such Postgresql
+2) There are no Delta-V servers yet
+
+It occurs to me that I could give users the choice by hiding the implementation detail behind a design pattern. I could initially do this using Postgresql and then provide alternative  implementations if required (I can simulate versions of requirements in a DBMS)

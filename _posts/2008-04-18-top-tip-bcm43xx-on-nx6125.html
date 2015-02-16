@@ -1,0 +1,12 @@
+---
+layout: post
+title: ! 'Top Tip: bcm43xx on nx6125'
+tags:
+- Linux
+- Open Source Software
+status: publish
+type: post
+published: true
+meta: {}
+---
+<br /><a href="https://help.ubuntu.com/community/WifiDocs/Driver/bcm43xx/Feisty_No-Fluff#head-b0e306f00ab3b4adea24f483a5dd5bf05fbdaf08">WifiDocs/Driver/bcm43xx/Feisty No-Fluff - Community Ubuntu Documentation</a> <br /> <blockquote>Step 2b: sp33008 Driver Download/Extraction</blockquote><br /><br />First off I'd like to thank Broadcomm for being such a bunch of peasants as to make life hard for people not running operating systems from the West Coast USA.<br /><br />Here is my contribution to the many, many, comments on the web on how to get the bmc wireless hardware working. Note that there seems to be a lot a variation in peoples' experience -- you would probably be advised to slaughter a chicken and sprinkle the warm blood over your laptop first (it can't hurt)<br />ndiswrapper<br />I used the ndiswrapper route as the native OSS driver did not work for me. Also note that I am running <a href="http://www.kde.org/">KDE</a> (<a href="http://www.kubuntu.org/">kubuntu</a>)<br /><br /><br /><ol><li>Download the latest driver package from hp.com. NB This is distributed as a Windows exe file but you can extract it using wine (<code>sudo apt-get install wine</code>), the file will end up in somewhere like <code>~/.wine/drive_c/SWSetup/SP34152A/</code></li><li>Make sure the native driver is disabled (instructions on URL above)</li><li>Run <a href="http://ndiswrapper.sourceforge.net/">ndiswrapper</a> -i ... (as explained in URL above) but use the HP driver package you downloaded</li><li>In System settings/Network settings/ make sure the eth1 interface is configured for dhcp and then disabled.</li><li>Install <a href="http://kwifimanager.sourceforge.net/">KWiFiManager</a></li><li> Use kWifi Manager to confgure your WiFi connection and then activate it.</li></ol>Please note that I did not follwo such a direct route so I have limited confidence this would work exactly as documented. I took me 3 days of fiddling around so please be patient.

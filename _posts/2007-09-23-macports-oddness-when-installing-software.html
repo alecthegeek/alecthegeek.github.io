@@ -1,0 +1,21 @@
+---
+layout: post
+title: Macports oddness when installing software
+tags:
+- Mac
+status: publish
+type: post
+published: true
+meta: {}
+---
+(updated March 2008)
+
+I was using <a href="http://www.macports.org/">Macports</a> to install <a href="http://wiki.gnucash.org/wiki/GnuCash">GNUCash</a> on my Macbook and hit a small road block which may be useful to share:
+
+Halfway through install of glib2 my connection dropped out and the install barphed. Every time I restarted it it complained about the checksum being invalid for that package. After a lot of messing around the following two commands seemed to do the trick
+
+<code> </code>
+<pre>sudo port clean --all glib2</pre>
+<ol></ol>
+<ol></ol>
+YMMV

@@ -1,0 +1,43 @@
+---
+layout: post
+title: Configuration Management of Databases
+tags:
+- Software Configuration Management
+status: publish
+type: post
+published: true
+meta: {}
+---
+I keep re-writing this information every few years, so I thought I would post it here for posterity. The premise is that the configuration management of Relational Databases is hard.
+
+(This <a href="http://tech.groups.yahoo.com/group/scm-patterns/message/934">message </a>also has pointers to more information, but it is limited)
+
+Why is that?
+<ol>
+	<li>Databases contain multiple levels of information. i.e.
+<ol>
+	<li>The database schema which lays out the tables, attributes, constraints i.e. the creation and modification of database objects</li>
+	<li>The core data required to get any applications running and doing nothing. e.g. in a banking system this might be a list of ISO currency codes. Such data can be considered mostly invariant</li>
+	<li>More frequently changing application data required for the application to start. E.g. in our banking system it could the currency conversion rates. This is distinct from transaction data accumulated as the system is used.</li>
+	<li>transaction data accumulated as the system is used. This is the "production" data, however there also has to be a way to populate test and development systems with test versions of this data</li>
+	<li>Possibly the configuration of the actual DBMS software and storage -- however that is usually handled separately.</li>
+</ol>
+</li>
+	<li>The data is stored in opaque formats that cannot be parsed by external tools</li>
+	<li>The amount of information may be large</li>
+	<li>Databases need to be build and populated with data for a variety of purposes
+<ul>
+	<li>A new installation is to be created (at a specific release number) in an empty database environment. Empty in this context means there is no existing data related to this database schema and data in the new system</li>
+	<li>An existing system, currently at a previous release, perhaps more than one release ago, needs to be upgraded to later release.</li>
+	<li>An environment needs to have it's static data re applied</li>
+	<li>A test environment needs to have a specific set of test data applied</li>
+</ul>
+Note that this discussion does not discuss the issue of service continuity (disaster recovery) as that is outside the scope of SCM and is an operational issue.</li>
+</ol>
+<h2>Solutions</h2>
+There are various tools supplied by vendors e.g. preserving the schema data in a 3rd party tool which generates the appropriate scrips or DBMS tools. As all these tools are closed then all you have done is moved you lack of control from the database to somewhere else i.e the new tool. It is likely that you are unable to fulfil the Identify/Control/Accounting/Auditing requirements of CM.
+A second alternative is the manual maintenance of SQL scripts to maintain the database.  i.e. to create tables etc (<a href="http://en.wikipedia.org/wiki/Data_Definition_Language">DDL</a>) and load data (<a href="http://en.wikipedia.org/wiki/Data_Manipulation_Language">DML</a>).
+
+Two sets of the DDL needs to be maintained for each DBMS object -- one to upgrade the definition of the object from the previous version, without deleting data, and a second to create the object from new. The obvious disadvantage with this approach is the skill and time involved. However it is transparent and uses artefacts that can be controlled using conventional CM techniques.
+
+Update June 2007: There is some further material on the <a href="http://www.codeproject.com/KB/database/DatabaseSchemaVersioning.aspx">Code Projec </a> about how to maintain SQL Scripts for this purpose

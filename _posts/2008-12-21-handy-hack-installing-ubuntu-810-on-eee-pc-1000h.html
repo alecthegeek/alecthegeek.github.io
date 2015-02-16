@@ -1,0 +1,31 @@
+---
+layout: post
+title: ! 'Handy Hack: Installing Ubuntu 8.10 on EEE PC 1000H'
+tags:
+- EEE PC
+- LinkedIn
+- Linux
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '451289'
+---
+The 10" EEE PC 1000H makes a good choice for people looking for a notebook with a little more storage and bigger keyboard than Asus' previous model. Unfortunately, whilst the local Harvey Norman had a good price, I was still forced to pay the <a href="http://www.linfo.org/microsoft_tax.html">Microsoft tax</a>. So the third job after I got home (after upgrading the BIOS and checking the hardware worked ) was to install Ubuntu 8.10. The process was pretty straight forward because I had a current Ubuntu system to create the USB boot disk and a wired network connection so that I could install the wireless tweaks. However it took a fair mount of Googling to hopefully this should save some folks a bit of time.
+<ol>
+	<li>Get a copy of the 32-bit Ubuntu 8.10 ISO image. I used the Desktop version, alternative should work fine as well</li>
+	<li>Use the Ubuntu System-&gt;Administration -&gt; Create Startup USB tool to copy Ubuntu to a USB stick</li>
+	<li>Shutdown Windows on the EEE. I had to do this via Windows shutdown to get the correct prompts on power up</li>
+	<li>Power up the EEE with the ESC key pressed. You should be prompted for a boot device</li>
+	<li>Boot from USB</li>
+	<li>Install Ubuntu in the normal fashion</li>
+	<li>Connect to wired Internet connection</li>
+	<li>Get latest updates</li>
+	<li>Follow these <a title="EEEPC 1000H kernel setup" href="http://www.array.org/ubuntu/setup-intrepid.html" target="_blank">instructions</a></li>
+	<li>You should now have a working EEE PC with wireless</li>
+</ol>
+To configure Evolution email use ALT-f at the end of each configuration screen (the buttons can't be seen)
+
+Try setting the panels to autohide this will give you a little more screen room
+
+The EEE PC trackpad buttons are pushed from the front by the way, not the top.

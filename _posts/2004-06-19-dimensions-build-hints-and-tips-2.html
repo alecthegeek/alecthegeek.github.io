@@ -1,0 +1,137 @@
+---
+layout: post
+title: Dimensions Build Hints and Tips
+tags:
+- Software Configuration Management
+status: private
+type: post
+published: false
+meta: {}
+---
+<em>This material has not been validated on newer versions of Dimensions Builder</em>
+<ul>
+	<li>When setting up source dependencies it is necessary to use the
+full
+workset path from the workset root</li>
+	<li>When the JAR task looks for class files it
+<ul>
+	<li>Looks by default in the directory as the Java source file</li>
+	<li>Looks for classes to jar called *.jar</li>
+</ul>
+</li>
+	<li>If the source directory contains code that is used by more than
+jar file then the jar file will contain more classes than it should</li>
+	<li>If an intermediate directory is used to split this
+up then the jar task still seems to insist on jar from the source
+directory, not the intermediate directory</li>
+	<li>This can be mitigated by using the the ModuleDir flag on the Java
+Jar task
+<ul>
+	<li>or use the alternative ‘Filter Java
+Classes by Name’</li>
+</ul>
+</li>
+	<li>If any task has to be removed then it is necessary
+to delete the TGT and start again. This is fixed in Build 6.2</li>
+	<li>TGT files must not have the option "Don't force new
+revision number on check in' on (contributed by Ben Hui)</li>
+	<li>A more sophistigated ordering of command execution can be
+echieved by splitting up a TGT file into multiple TGT files. Then make
+the downstream targets depend on the intermediate targets .e.g. class
+files or javac internal Openamake files</li>
+	<li>Search· Paths
+<ul>
+	<li>Must contain '.' which should be the first directory, i.e. the
+current build directory</li>
+	<li>Should not contain sub directories of the current build
+directory for source depdendencies</li>
+	<li>Must contain sub directores of the current build diretcory if
+those dirs contain intermediate targets, or final tragets that are
+re-used</li>
+</ul>
+</li>
+	<li>Only use search paths to identify differences between various
+build
+levels ??</li>
+	<li>Windows Cut and paste works in the Openmake GUI client with
+Ctrl-V and Crtrl-C</li>
+	<li>How to test builds from the command line. Run <code>bldmake
+"PROJECTNAME" "SEARCHPATHNAME" -a -ov &amp;&amp; om -pv -f Java.mak -ov</code></li>
+	<li>Having multiple TGT files in a workset (contributed by Vadym
+Krevs):
+<ul> usually the source code for a project lives in one workset.
+Here by "project" I mean a totally generic software project (or a
+version of software component) - without any connection to Openmake or
+Dimensions project. For example, we use one workset PVCS:DM8040 for the
+"Dimensions 8.0.4.0" project, and another workset PVCS:DM9000 for the
+"Dimensions 9.0.0.0" project and so on. Within each such "project" we
+have many buildable targets such as dmlsnr, dmappsrv, dmcli,
+libpcmscore.so, etc. It is just simpler to manage project source code
+if it lives in one workset.Now, going back to Openmake, one TGT file can only be used to define
+one buildable target like dmlsnr or libpcmscore.so. In any non-trivial
+project - like yours, most likely, you'd have many targets, hence the
+need to have one TGT file per each such target in the project workset.
+In other words, you want to have all project's TGTs within one workset,
+so that when that workset is reflected in one or more build areas which
+constitute a search path, Openmake could build more than one target in
+one go. Does that answer your question about why would one have more
+than one TGT in a workset?As to whether it makes sense to associate a workset with more than one
+Dimensions build projects, the answer is no, and probably you will not
+be able to do that. If you can, then it is a bug.Remember that a "build project" defined via DBPROJ/Adminconsole in
+Dimensions corresponds to an Openmake project, whereas a "project"
+defined via DPROJ/Adminconsole represents a version of your build
+project. All build-related commands in Dimensions operate with respect
+to a project, not a build project. All search paths defined in Openmake
+for use with Dimensions reference projects, not build projects. When
+you set up build, you select a "development" workset and associate it
+with a project via DWS/SWS, not a build project. Whenever BLD/BLDB look
+for target definitions to be built, they automatically restrict the
+list of candidate TGT in the workset to the list of such TGTs which
+reference the build project that corresponds to the project assigned to
+your development workset. Thus, if you have TGTs defined for different
+build project within one workset, then TGTs defined for the "foreign"
+build project will simply be ignored.</ul>
+</li>
+	<li>When using Dimensions Build on remote UNIX nodes then is is
+neccassry to set up environment varibales (usually used in search
+paths, e.g. JAVA_HOME) as follows (contributed by Vadym Krevs):</li>
+</ul>
+<ol>
+	<li>Become root and shutdown the Dimensions listener on the remote
+UNIX node via "<code>. &lt;DM_ROOT&gt;/dprofile; stop_dimensions -force</code>",
+and verify that no dmlsnr and/or dmlibsrv processes are running on that
+remote UNIX node (<code>ps -ef | grep dm[lai]</code>).</li>
+	<li>Change to $DM_ROOT/prog, rename dmlibsrv into dmlibsrv.real
+<ol> <big>·<code>cd $DM_ROOT/prog; mv dmlibsrv dmlibsrv.real;
+ls
+-alF $DM_ROOT/prog/dmlibsrv.real</code> </big></ol>
+</li>
+	<li>Create a shell script named "dmlibsrv" in $DM_ROOT/prog with the
+following contents. You can set any number of environment variables
+before the last line which spawns dmlibsrv process - which is the
+process launching bldmake and om executables.
+<ol> <big> <code>#!/bin/sh</code></big><code><big>. &lt;your DM_ROOT&gt;/dmprofile</big></code><code><big>export JAVA_HOME=&lt;your path to Java&gt;</big></code><code><big>export
+OPENMAKE_SERVER=http://&lt;somehostname&gt;:58080/openmake</big></code><code><big>export PERLLIB=&lt;your perl library search path
+value&gt;
+export
+PATH=&lt;your path to bldmake &amp; om&gt;:&lt;path to perl
+5.6.x&gt;:&lt;path to Java&gt;:$PATH # On AIX use LIBPATH, on HP-UX use
+SHLIB_PATH, on other systems use LD_LIBRARY_PATH export
+LD_LIBRARY_PATH=&lt;your path to bldmake &amp; om&gt;:$LD_LIBRARY_PATH
+export REFDIR=&lt;your examples location&gt; # # Add any additional
+environment variables to customize the environment #</big></code>
+
+<code><big>&lt;your DM_ROOT&gt;/prog/dmlibsrv.real $*·
+1&gt;/dev/null 2&gt;&amp;1</big></code><big> </big></ol>
+</li>
+	<li>Ensure that the created shell script is owned by the DM_OWNER
+user (typically dmsys, check the value of DM_OWNER in dmgvar.sh) and
+that it is executable:
+<ol> <big> <code>chown dmsys:dmtool $DM_ROOT/prog/dmlibsrv ; chmod 555
+$DM_ROOT/prog/dmlibsrv</code> </big></ol>
+</li>
+	<li>Restart the Dimensions listener via "<code>dmlsnr -param
+$DM_ROOT/dfs/listener.dat</code>".·</li>
+	<li>Try submitting a build job against that remote UNIX node. Now
+bldmake and om will have their environment initialized correctly.</li>
+</ol>

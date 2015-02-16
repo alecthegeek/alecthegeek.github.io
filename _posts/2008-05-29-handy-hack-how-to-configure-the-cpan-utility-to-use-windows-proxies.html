@@ -1,0 +1,38 @@
+---
+layout: post
+title: ! 'Handy Hack: How to configure the cpan utility to use Windows proxies'
+tags:
+- Cygwin
+- Perl
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '451289'
+---
+When using cpan.bat the following may be helpful. Please note that this is for a Windows corporate network infrastructure and was tested using both <a href="http://win32.perl.org/wiki/index.php?title=Strawberry_Perl">Strawberry</a> and <a href="http://win32.perl.org/wiki/index.php?title=Win32_Distributions#Cygwin">Cygwin</a> Perl in the current network environment where I work. YMMV!
+
+<em><strong>BEWARE THAT THIS APPROACH STORES YOUR LAN PASSWORD ON YOU LOCAL HARD DISK.  THIS IS INSECURE!</strong></em>
+
+Step 1: Information Gathering
+<ol>
+	<li>Discover the address of your proxy: If using a PAC file (look in IE Tools-&gt;Internet Options-&gt; Connections -&gt; LAN Settings and identify the setting 'Use automatic configuration script') then download the PAC file and open in a text editor. The default proxy address (e.g. proxy.corp) and port (e.g. 80) will probably be at the bottom of the PAC script. If you are not using a PAC script then the proxy address will be in the LAN Settings dialog.</li>
+	<li>Know your domain name (e.g. corpdom) and lan ID (e.g. lanname)</li>
+	<li>You will also need your lan password (e.g. secret)</li>
+</ol>
+Step 2: Configure CPAN
+<ol>
+	<li>From the command line ensure that you running the correct version of perl (perl --version)</li>
+	<li>run the command cpan</li>
+	<li>You may be asked some configuration questions -- answer as best you can and take defaults if not sure</li>
+	<li>At the CPAN Prompt type the following commands:
+<ol>
+	<li> <code>o conf proxy_user corpdom\\lanname</code> (NB Double slash required)</li>
+	<li> <code>o conf proxy_pass secret</code></li>
+	<li> <code>o conf ftp_proxy http://proxy.corp:80</code> (NB No trailling slash on URL)</li>
+	<li> <code>o conf http_proxy http://proxy.corp:80</code> (NB No trailling slash on URL)</li>
+</ol>
+</li>
+	<li>Now try and install something (e.g. <code>i Bundle::Perl::Critic</code>)</li>
+</ol>
+[Update: July 2008 -- tested on Strawberry and Cygwin Perl. See <a title="Force cpan to ask configuration questions" href="http://alecthegeek.wordpress.com/2008/07/09/handy-hack-force-cpan-utiltiy-re-run-the-configure-questions/">also</a>]

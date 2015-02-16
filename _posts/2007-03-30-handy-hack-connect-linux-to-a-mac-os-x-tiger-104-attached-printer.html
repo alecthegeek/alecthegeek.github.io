@@ -1,0 +1,19 @@
+---
+layout: post
+title: ! 'Handy Hack: Connect Linux to a MAC OS X Tiger (10.4) attached printer'
+tags:
+- Linux
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '451289'
+---
+Tiger comes with CUPS installed so:
+<ol>
+	<li>Enable printer sharing in the System Preferences/Printer Setup tool on the Mac</li>
+	<li> At the Mac terminal (Applications/Utilities in Finder) issue the command <code>lpq localhost</code> which will list the name of your CUPS printer queues</li>
+	<li>On your  Linux system use the printer administration utility to connect to  the  printer as <code>http://&lt;Mac_IP_Address&gt;:631/printers/&lt;cupsQueueName&gt;</code>, e.g. <code>http://192.168.0.2:631/printers/DESKJET_640C</code></li></ol>
+
+Updated April 2008
+On some clients the URL's seem to be case sensitive so enter them carefully.

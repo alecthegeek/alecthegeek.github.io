@@ -1,0 +1,22 @@
+---
+layout: post
+title: Setting up test printing on a Mac using CUPS-PDF
+tags:
+- Mac
+- Software Setup
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '451289'
+  jabber_published: '1320796861'
+  _wpas_done_linkedin: '1'
+  email_notification: '1320796923'
+---
+In my new job at <a title="PaperCut Software web site" href="http://papercut.com/" target="_blank">PaperCut Software</a> I do a lot more testing of print jobs and I've found the following useful for saving trees. Note that this actually creates a PDF printer device on the Mac, this is different the PDF option displayed on the standard OS/X print dialogue.
+<ol>
+	<li><a title="Download for OS/X CUPS-PDF" href="https://bitbucket.org/codepoet/cups-pdf-for-mac-os-x/downloads" target="_blank">Download</a> and install the Mac CUPS-PDF package</li>
+	<li>Create a new printer, as a generic colour postscript device</li>
+	<li>You can now create print jobs from the command line as any user with the following <code>su - testuser -c 'lpr -P cups_pdf /etc/group'</code></li>
+	<li>You can check the output in <code>/Users/Shared/CUPS-PDF</code></li>
+</ol>

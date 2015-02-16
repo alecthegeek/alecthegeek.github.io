@@ -1,0 +1,30 @@
+---
+layout: post
+title: ! 'Handy Hack: How to install the Ubuntu install CD onto the hard disk'
+tags:
+- Linux
+status: publish
+type: post
+published: true
+meta: {}
+---
+<em>Updated 27/April: These instructions are <strong>not </strong>correct for Ubuntu 7.04 (Feisty Fawn)</em>
+
+Upated 11/Jan/07 and 21/Jan/07.  Also 28/Jan after suggestion from James
+
+When you install a Debian based distro the apt package will look on the on the CD Image for packages when you install new software (as well as using the on line repositories). This means that users are regularly asked to insert the CD when using apt-get.
+
+If you have enough space on your hard disk you can copy the image and configure apt to use the ISO image instead of the physical  CD.
+<ol>
+	<li>Use a CD writer to <a href="http://alecthegeek.wordpress.com/2007/01/19/how-to-create-an-iso-file-image-in-gnome/">create a ISO image</a> of the install CD. I keep mine as <code>/var/Ubuntu_6.10_i386.iso</code></li>
+	<li>Configure a mount point by editing <code>/etc/fstab</code>
+(<code>/var/Ubuntu_6.10_i386.iso  /media/Ubuntu_6.10_i386.iso  udf,iso9660   noauto,loop</code>). I also created the mount point <code> mkdir /media/Ubuntu_6.10_i386.iso</code></li>
+	<li>Truncate the file <code>/var/lib/apt/cdrom.lists</code></li>
+	<li>Add the line <code>Acquire::cdrom::mount "/media/Ubuntu_6.10_i386.iso/";</code> to file <code>/etc/apt/apt.conf</code></li>
+	<li>Edit the <code>/etc/apt/sources.list</code> file and remove the references to the physical CD drive based source</li>
+	<li>Run the command <code>sudo apt-cdrom add</code></li>
+</ol>
+Now when you run Synaptic it should mount your CD image as required. I testedby adding the package mailx. You should be able to see the icon for mounted image flash on the GNOME Desktop as the install take place. Remember to run <code>apt-get clean</code> if you want to test it again.
+
+I have not idea what to do if your install media spans multiple CD-ROM disks. Anyone else know?
+<p class="poweredbyperformancing">powered by <a href="http://performancing.com/firefox">performancing firefox</a></p>

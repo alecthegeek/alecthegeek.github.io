@@ -1,0 +1,25 @@
+---
+layout: post
+title: Handy Hack:Perl DBI count rows returned from select statment
+tags:
+- Perl
+status: publish
+type: post
+published: true
+meta: {}
+---
+
+<pre>my $rowCount = $dbh-&gt;selectrow_array(
+
+                                 qq{
+
+                                      SELECT count(*)
+
+                                         FROM my_table
+
+                                       WHERE attr1 = ?
+                                },undef,
+                                $myValue);</pre>
+In theory it's a bad thing to assume a select will return a single scalar value instead of multiple attributes and rows, however with a count clause we should be pretty safe. N.B. using the <code>$dbh-&gt;rows()</code> function or similar is not correct on a select statement.
+
+Modified after a suggestion from Randal. Thanks mate.

@@ -1,0 +1,98 @@
+---
+layout: post
+title: ! 'Handy Hack: format the display on gworldclock clock'
+tags:
+- Linux
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '451289'
+---
+Updated Oct/08
+<ul>
+	<li>I now use Gnome Clock. Right click on the task bar and you add additional time zones.</li>
+	<li>If you don't have access to GMT time zone in your tool add Reykavik, it uses GMT all year around.</li>
+</ul>
+Gnome has a handy little application, <a title="Gworldclock" href="http://gworldclock.klik.atekon.de/">Gworldclock</a>, that displays the date and time in multiple time zones (I currently keep track of nine).
+
+Adding new time zones is done through the GUI interface and should be obvious after some experimentation. It is also possible to change the format in which dates and times are displayed (File/Preferences) and there is an option to enter a custom format. However for new Linux users it is not very obvious how to create a custom format and there is no explanation (until now).
+
+The format is specified using the conventions of the UNIX date command and you can get the that documentation by typing <code>man date</code> at a shell prompt.  I've also added a summary to the end of this post but I am not sure if Gworldclock supports all the options. To start with you might want to try <code>%R %a</code>, however <code>%N</code> is probably of limited value :-)
+<pre>%a     locale's abbreviated weekday name (e.g., Sun)</pre>
+<pre>%A     locale's full weekday name (e.g., Sunday)</pre>
+<pre>%b     locale's abbreviated month name (e.g., Jan)</pre>
+<pre>%B     locale's full month name (e.g., January)</pre>
+<pre>%c     locale's date and time (e.g., Thu Mar  3 23:05:25 2005)
+
+%C     century; like %Y, except omit last two digits (e.g., 21)
+
+%d     day of month (e.g, 01)
+
+%D     date; same as %m/%d/%y
+
+%e     day of month, space padded; same as %_d
+
+%F     full date; same as %Y-%m-%d
+
+%g     the  last  two  digits  of the year corresponding to the %V week number
+
+%G     the year corresponding to the %V week number
+
+%h     same as %b
+
+%H     hour (00..23)
+
+%I     hour (01..12)
+
+%j     day of year (001..366)
+
+%k     hour ( 0..23)
+
+%l     hour ( 1..12)
+
+%m     month (01..12)
+
+%M     minute (00..59)
+
+%n     a newline
+
+%N     nanoseconds (000000000..999999999)
+
+%p     locale's equivalent of either AM or PM; blank if not known
+
+%P     like %p, but lower case
+
+%r     locale's 12-hour clock time (e.g., 11:11:04 PM)
+
+%R     24-hour hour and minute; same as %H:%M
+
+%s     seconds since 1970-01-01 00:00:00 UTC
+
+%S     second (00..60)
+
+%t     a tab
+
+%T     time; same as %H:%M:%S
+
+%u     day of week (1..7); 1 is Monday
+
+%U     week number of year with Sunday as first day of week (00..53)
+
+%V     week number of year with Monday as first day of week (01..53)
+
+%w     day of week (0..6); 0 is Sunday
+
+%W     week number of year with Monday as first day of week (00..53)
+
+%x     locale's date representation (e.g., 12/31/99)
+
+%X     locale's time representation (e.g., 23:13:48)
+
+%y     last two digits of year (00..99)
+
+%Y     year
+
+%z     +hhmm numeric timezone (e.g., -0400)
+
+%:z    +hh:mm numeric timezone (e.g., -04:00)</pre>

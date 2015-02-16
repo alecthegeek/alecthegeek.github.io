@@ -1,0 +1,19 @@
+---
+layout: post
+title: ! 'Top Tip: Windows Perl CPAN slows to crawl using network drives'
+tags:
+- Cygwin
+- Perl
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '451289'
+---
+I noticed this when using Cygwin Perl, however I suspect the issue exists with any Perl distro on Windows.
+
+The problem occurred when I had set the HOME environment variable to point to a network share. When I ran the CPAN utility it placed all the CPAN files on the network. As a result some modules would not install (I have no idea why) and it ran very very slowly.
+
+The solution I adopted was to to move my home directory to the local PC drive which then made CPAN use the local drive as well.  Changing  <code>cpan_home</code> in  <code>/usr/lib/perl5/5.10/CPAN/Config.pm</code> would probably have been simpler, but I was happy to use the local disk for everything.
+
+<a title="define YMMV" href="http://www.google.com.au/url?q=http://en.wiktionary.org/wiki/YMMV&amp;ei=_m5GS-3cIojctgP6p-T1Dw&amp;sa=X&amp;oi=define&amp;ct=&amp;cd=1&amp;ved=0CAkQpAMoAA&amp;usg=AFQjCNHrDosNsqPyceYWm3tp1sOlUiluZQ" target="_blank">YMMV</a>

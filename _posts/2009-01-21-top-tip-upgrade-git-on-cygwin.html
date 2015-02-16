@@ -1,0 +1,26 @@
+---
+layout: post
+title: ! 'Top Tip: Upgrade Git on Cygwin'
+tags:
+- Cygwin
+- Git
+- LinkedIn
+- Open Source Software
+- Software Development
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '451289'
+---
+The current version of git installed with Cygwin (1.5.x) has at least one annoying bug so it's worth building  the latest version (NB I have almost all of Cygwin installed - you may need to install additional development tools and libs):
+<ol>
+	<li>Download and unpack the source code. Pointer <a title="Pointer to git source code" href="http://git-scm.com/" target="_blank">here</a></li>
+	<li>Run './configure --prefix=/usr/local'</li>
+	<li>Run 'make test'</li>
+	<li>Ignore errors relating to not detecting unwritable repos</li>
+	<li>run 'make install'</li>
+	<li>run 'hash -r'</li>
+	<li>Make sure it's installed with 'type git' and 'git --version'</li>
+</ol>
+Update March/09 -- I found more detailed <a href="http://techblogging.wordpress.com/2008/04/11/compiling-and-installing-git-on-windows-under-cygwin/" target="_blank">instructions</a>

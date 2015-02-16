@@ -1,0 +1,33 @@
+---
+layout: post
+title: So what's the deal with Ajax?
+tags:
+- Software Development
+status: publish
+type: post
+published: true
+meta: {}
+---
+I have been spending the last few weeks working in an Ajax environment and whilst I am no Ajax expert there are some observations I feel compelled to make.
+<ol>
+	<li>The benefits are substantial for the end user of your software (interaction, features offered...) so it's worth doing.</li>
+	<li>It's a pain to debug because you are spreading your code across multiple locations and languages.</li>
+	<li>It's worth using a templating system (e.g. <a href="http://www.masonhq.com/" title="Mason web site">HTML::Mason</a>) when writing web apps, with or without Ajax. It makes live a lot easier when generating mark up.</li>
+	<li>The Ajax paradigm leads to a different architecture at the back end. Something like this:
+<ol>
+	<li>A module generates
+<ol>
+	<li>Some Basic HTML and place holders for data, but no data</li>
+	<li>Lots of Javascript (but remember to use an Ajax library such as <a href="http://developer.yahoo.com/yui/" title="Yahoo User Interface Library">YUI</a>)</li>
+</ol>
+</li>
+	<li>This first page loads and makes an Ajax call</li>
+	<li>A second module on the server responds to your Ajax call and supplies data (or whatever)</li>
+	<li>The web page is populated by the Javascript via the DOM and and can be used.</li>
+	<li>The user interacts with your Javascript (and forms etc.)</li>
+	<li>Your Javascript makes an Ajax call</li>
+	<li>goto 3</li>
+</ol>
+</li>
+</ol>
+So you can see what I mean about things being spread around.  It's a lot harder to work with that a traditional form based approach.

@@ -1,0 +1,23 @@
+---
+layout: post
+title: ! 'Handy Hack: Can''t run perldoc on Cygwin'
+tags:
+- Cygwin
+- Perl
+- Windows
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '451289'
+---
+When running <a title="Man page for perldoc" href="http://search.cpan.org/dist/Pod-Perldoc/lib/perldoc.pod" target="_blank">perldoc</a> on certain Windows systems using <a title="What is Perl" href="http://perl.net.au/wiki/Perl" target="_blank">Perl</a> under <a title="Cygwin home page" href="http://cygwin.com/" target="_blank">Cygwin </a> it is possible to get an error message
+
+<code>Error in tempfile() using ./XXXXXXXXXX: Parent directory (./) is not writable
+</code>
+
+This is more likely to happen if your system has been 'hardned' by a corporate IT department. The fix is as follows:
+<ol>
+	<li>Make sure $TMPDIR is defined and points to somewhere sensible (e.g. $TMP)</li>
+	<li>Make sure you have read/write permissions (<code>chmod 777 $TMPDIR</code>)</li>
+</ol>

@@ -1,0 +1,52 @@
+---
+layout: post
+title: Application deployment and change auditing with git
+tags:
+- Change Audit
+- Git
+- Open Source Software
+- Perl
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '451289'
+---
+Updated 6/Feb/09
+
+I'm currently working on on a project to deploy some complex banking systems and we have some somewhere in the region of 40 environments (various testing, production and development instances)
+
+I've written some Perl to automatically configure environments using Text::Template. Now I'd like to automate deployment and have some form of change auditing (c.f.<a title="AIDE project" href="http://www.cs.tut.fi/~rammer/aide.html" target="_blank">AIDE</a> or <a title="Tripwire open source project" href="https://sourceforge.net/projects/tripwire/" target="_blank">Tripwire</a>).
+
+So a new project (which I hope will also  have some useful ideas for others):
+<ul>
+	<li><a title="Git application deployment" href="https://gitappdeploy.pbwiki.com/" target="_self">Project Outline and User stories</a></li>
+	<li>General Approach using git (other tools could probably be used)
+<ul>
+	<li>Define a staging repo</li>
+	<li>Create a remote branch of each deployment environment</li>
+	<li>Create a repo on each environment</li>
+	<li>Define a custom merge driver that overwrites (old files with new releases)</li>
+	<li>For each release
+<ul>
+	<li>Create a new branch (overkill?)</li>
+	<li>Add new release to new branch</li>
+	<li>tag</li>
+</ul>
+</li>
+	<li>To deploy
+<ul>
+	<li>Merge (using new driver) onto environment branch</li>
+	<li>tag</li>
+	<li>Push to remote</li>
+	<li>On remote perform <code>git reset --hard HEAD</code></li>
+	<li>configure</li>
+	<li>add and commit configuration changes</li>
+	<li>on staging pull config changes from remote repo</li>
+</ul>
+</li>
+	<li>Now use git status etc. on environments to track any changes</li>
+	<li>Staging should have historical record of changes</li>
+</ul>
+</li>
+</ul>

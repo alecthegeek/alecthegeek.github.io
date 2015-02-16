@@ -1,0 +1,30 @@
+---
+layout: post
+title: ! 'Software Development: An example of poor requirements'
+tags:
+- Software Development
+status: publish
+type: post
+published: true
+meta: {}
+---
+Something happened to me today that illustrated some of the problems with incomplete requirements and testing.
+
+I went swimming with my mother and wanted to rent a locker which costs three Australian dollars. In my pocket I had some two and one dollar coins plus a twenty cent coin.
+
+I reached into my pocket and took out a dollar coin which I inserted into the machine -- Now as I had a twenty cent credit as in fact I had, in my haste, inserted a 20c coin instead of a dollar.
+
+At that point I pressed the reject button -- which did nothing. I can't work out if that was a mechanical failure in the coin mechanism or a design decision -- I suspect the former as it seems to defeat the purpose of a coin reject button.
+
+Now I proceeded to add more coins with intent of paying 3.20 for my locker, just to get a locker as quickly as possible - I figured my time was worth 20c. Adding a dollar was fine, then I added a two dollar coin , which was rejected because it meant I was over paying by 20c. Now now I was $1.20 in credit with no way forward -- the reject button still did nothing.
+
+Pressing the cancel key on the keyboard took me back to the main menu. However attempting the the rental cycle again just got me back to the position of being $1.20 in credit and no way forward (accept adding 80c in change which I did not have) and not one else could rent a locker either.
+
+When a member of staff came over to  assist me they were unable to easily do anything as the supervisor interface was too complicated to make it obvious was could be done. There was an option to reset the whole mechanism, but that would have locked out all currently used lockers.
+
+So what lessons can we take from this:
+<ol>
+	<li>Make user interfaces simple and thoroughly test them with naive users. Even expert users will thank you if your system is easy to use</li>
+	<li>Assume that systems will fail (e.g. The coin reject button)</li>
+	<li>Assume users will make mistakes and incorporate this into your user stories and tests</li>
+</ol>

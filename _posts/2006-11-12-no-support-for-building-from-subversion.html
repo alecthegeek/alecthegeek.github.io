@@ -1,0 +1,21 @@
+---
+layout: post
+title: No support for Building from Subversion
+tags:
+- Application Lifecycle Management
+- Software Configuration Management
+status: publish
+type: post
+published: true
+meta: {}
+---
+I <a href="http://alecthegeek.wordpress.com/2006/11/02/subversion-based-software-building/">mentioned</a> a few days ago that I was looking to write a <a href="http://alecclews.pbwiki.com/SubversionBuilding">paper</a> about building from Subversion using strict configuration management control.
+
+There seems to be no previous art on how to do this, even in a similiar way to the current way that GNU Make suppors tools like RCS (admintally RCS is a file based version control system as apposed to directory based like CVS and Subversion).
+
+So I a appear to be breaking new ground :-).
+
+I had an epithany today relating to the use of listing a Build Of Lost as a Subversion repository. Make should be able to update the build revion with the details of the files used as inputs -- the slightly tricky part is to conconcate the information from source files to final built targets via the intermediate built files.
+
+Update 14/Nov/06 -- I did find <a href="http://subversion.open.collab.net/articles/IntegratingSubversionIntoYourAntBuild.html">this</a> about using <a href="http://ant.apache.org/">Ant</a> and Subversion, <a href="http://ant.apache.org/manual/tasksoverview.html#scm">this</a> list of VC Ant tasks and <a href="http://ant.apache.org/external.html#Source%20Control%20Systems">this</a> list of optional Ant tasks
+<p class="poweredbyperformancing">powered by <a href="http://performancing.com/firefox">performancing firefox</a></p>

@@ -1,0 +1,59 @@
+---
+layout: post
+title: emacs Tramp on Windows
+tags:
+- Cygwin
+- LinkedIn
+- Open Source Software
+- Security
+- Software Development
+- Windows
+- Work Practices
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '451289'
+---
+Updated Oct/08
+
+I am using emacs with the tramp extension to edit files on a remote server using ssh. I had to pull in various hacks to get it to work so I hope these notes might help others.
+<ol>
+	<li>Install <a title="Emacs for Windows FAQ" href="http://www.gnu.org/software/emacs/windows/ntemacs.html" target="_blank">Emacs for Windows</a> and <a title="Cygwin home page" href="http://cygwin.com/" target="_blank">Cygwin</a> with OpenSSH</li>
+	<li>Upgrade emacs <a title="TRAMP manual" href="http://www.gnu.org/software/tramp/" target="_blank">Tramp</a> to the latest version. This is best done using Cygwin bash and Cygwin make (in particular ensure that --with-lispdir and --infodir options are set correctly when running configure).
+<ul>
+	<li>Handy tip -- leave the tramp build directory hanging around. When you next upgrade Emacs it's just <code>make install</code> (providing you use same directory names)</li>
+</ul>
+</li>
+	<li>Ensure that the Cygwin bin directory is on the Windows system path</li>
+	<li>At the Cygwin bash prompt test ssh connection to your host</li>
+	<li><a title="How to generate keys on Cygwin" href="http://mah.everybody.org/docs/ssh" target="_blank">Generate public/private keys and upload to the host</a></li>
+	<li>Test ssh again to see if public authentication works (it did not for me because it had been disabled by the UNIX admin)</li>
+	<li>Configure emacs to use tramp<code>
+(require 'tramp)
+;;(setq tramp-debug-buffer t)
+;;(setq tramp-verbose 10)
+(setq tramp-auto-save-directory "c:\\tmp")
+(setq tramp-default-method "plink")</code></li>
+	<li>Start emacs and test connection (C-x C-f) using cygwin ssh/scp/sftp. If it works skip to step 14. I had issues so I continued with step 9</li>
+	<li><a title="How to install Putty and use OpenSSH keys" href="http://www.jeremyenglish.org/docs/tramp_ntmacs.pdf" target="_blank">Install</a> the Putty program suite</li>
+	<li>Test the connection using putty</li>
+	<li>Ensure the Putty install directory is on the system PATH</li>
+	<li>In emacs visit the host (C-x C-f) using the <a title="Tramp documentation on connection methods" href="http://www.gnu.org/software/tramp/#External-transfer-methods" target="_blank">method</a> 'plink'. If that does not work you are on your own (but see troubleshooting below)</li>
+	<li>If the public keys worked in ssh then import your OpenSSH keys into Putty</li>
+	<li>Use <a title="Using emacs bookmarks with tramp" href="http://marc-abramowitz.com/archives/2006/03/12/emacs-tramp-bookmarks-awesome/" target="_blank">emacs bookmarks</a> to save your common host locations</li>
+</ol>
+Troubleshooting:
+<ol>
+	<li>Getting rid of the "Couldn't find exit status of `test -e ..." error message by deleting ~/emacs.d/tramp file. This clears cached settings as documented at http://www.nabble.com/Emacs-tramp-troubles-with-old-Sun-tt13607411.html.</li>
+	<li>If Tramp and Emacs does not work for you try these alternatives:
+<ol>
+	<li><a title="Vim home page" href="http://vim.org" target="_blank">Vim</a> has a <a title="netrw script page" href="http://vim.sourceforge.net/scripts/script.php?script_id=1075" target="_blank">netrw</a> plugin</li>
+	<li>Both <a title="FileZilla home page" href="http://filezilla-project.org/" target="_blank">FileZilla</a> and <a title="about WinSCP" href="http://winscp.net/eng/docs/introduction" target="_blank">WinSCP</a> have options to edit a file from the remote file system which then invokes a local Windows editor of your choice.</li>
+	<li><a title="jEdit home page" href="http://www.jedit.org" target="_blank">jEdit</a> has an <a title="jEdit network plugins" href="http://plugins.jedit.org/list.php?category=7" target="_blank">ftp</a> plugin that supports sftp and bookmarks</li>
+</ol>
+</li>
+</ol>
+YMMV
+
+With many thanks to all the folks on the web who documented their experiences and Michael Albinus on the tramp-devl mailing list.

@@ -1,0 +1,26 @@
+---
+layout: post
+title: Quick wins in the Software development process pool
+tags:
+- Application Lifecycle Management
+- Software Configuration Management
+- Software Development
+status: publish
+type: post
+published: true
+meta: {}
+---
+Recently I had an interesting conversation with a business partner about their software development process and areas for improvement. Whenever I have these conversations the quick wins are often the same:
+<ul>
+	<li>When doing changes ensure all code changes are booked against a ticket in your ticket system. Make sure this is enforced by the software if possible</li>
+	<li>Make sure you have a consistent (but lightweight) ticket process that is applied to all changes. Try and automate the process flow with tools if possible</li>
+	<li>Provide a coherent, automatic, build process. Make sure that all test candidates are build on environments that are controlled -- not development environments. Tools such as CruiseControl can help. Consider placing built files under version control, providing adequete traceability information can be stored in the repository.</li>
+	<li>When creating files for a release make sure that you can show:
+<ul>
+	<li>Which source versions where used to build the software</li>
+	<li>How the software was build (on which machine, when, what 3rd party tools where part of the build process etc)</li>
+	<li>Which set of changes (tickets) are part of the release</li>
+</ul>
+</li>
+</ul>
+So make sure your tickets record the correct information, that you install any automation points you need, have a documented process and spend the technical effort to create and maintain your build infrastructure (that can be non-trivial). I'll try an post more about these topics in the next few days.

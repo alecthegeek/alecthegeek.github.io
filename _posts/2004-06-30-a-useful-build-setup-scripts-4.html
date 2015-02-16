@@ -1,0 +1,121 @@
+---
+layout: post
+title: A useful Build setup scripts
+tags:
+- Serena Dimensions
+- Software Configuration Management
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '451289'
+---
+<strong><em>NB NOT tested on current versions of Serena Dimensions</em></strong>
+
+Given a list of Build projects, setup projects and build areas. Assumes a naming convention. Need to set the variables buildServer, projectList, buildRoot before running.
+<pre>importPackage(Packages.com.merant.dimensions.objects);
+importPackage(Packages.com.merant.dimensions.collections);
+var db=BaseDatabase.getInstance();
+db.login("dmtool","dmtool","intermediate","localhost","DIM9");
+
+load("buildProjectsLibrary.js");
+//source("buildProjectsLibrary.js");
+
+//
+// Find a project. Assumes all project names are unique
+//
+function findProject(projectName) {
+    var projects = BaseDatabase.instance.projects
+
+    var id;
+    var project;
+
+    // loop over  project identifiers
+    for (var it = projects.iterator(); it.hasNext(); ) {
+        // get next  project id
+        id = it.next()
+
+        // fetch corresponding Project object
+        project = projects.get(id)
+
+       	if (project.name == projectName)
+		return project;
+    }
+    return null;
+}
+
+//
+// find a build stages registered in the base database. Assumes all stage names are unique
+//
+function findBuildStage(name) {
+    var buildStages = BaseDatabase.instance.buildStages
+
+    var id;
+    var buildStage;
+
+    // loop over build stage identifiers
+    for (var it = buildStages.iterator(); it.hasNext(); ) {
+        // get next build stage id
+        id = it.next()
+
+        // fetch corresponding BuildStage object
+        buildStage = buildStages.get(id)
+
+	if (buildStage.name == name)
+		return buildStage;
+    }
+    return null;
+}
+//
+// find a build area defined for a project
+//
+function findBuildAreasAssignedToProject(project,areaName){
+    var buildAreas = project.buildAreas
+
+    var id
+    var buildArea
+    // loop over project objects
+    for(var it = buildAreas.iterator(); it.hasNext(); ) {
+        // get next build area identifier
+        id = it.next()
+
+        // get next buildarea object
+        buildArea = buildAreas.get(id)
+
+	if (buildArea.name == areaName)
+		return buildArea;
+    }
+    return null;
+}
+
+var buildStageNames=new Array();
+  buildStageNames["UT"]="UNIT TEST";
+  buildStageNames["ST"]="SYSTEM TEST";
+  buildStageNames["REL"]="RELEASE";
+  buildStageNames["ER"]="EMERGENCY";
+
+var buildServer = "aus-alecc-mel";
+var projectList=new Array("BINGO");
+var buildRoot = "c:Builds\";
+
+for (var p in projectList ){
+	var cp = findProject(projectList[p]+"1.0");
+	if (cp)
+		print("Error: Project "+projectList[p]+"1.0  already defined!");
+	else
+	{
+		BaseDatabase.instance.runCommand("DPROJ "+projectList[p]+"1.0 /BUILD_PROJECT="+projectList[p]+" /DESC=\"" +projectList[p]+ " example build\"");
+		BaseDatabase.instance.projects.refresh();
+		cp = findProject(projectList[p]+"1.0");
+		for (var s in buildStageNames){
+			var cbs = findBuildStage(buildStageNames[s]);
+			if (cbs)
+				if (! findBuildAreasAssignedToProject(cp,cp.name +"_"+s))
+					createBuildArea(cp, cbs, cp.name +"_"+s, buildServer, buildRoot+cp.name+"\"+s,"Java","","");
+				else
+					print("Build stage "+cp.name +"_"+s+" already defined");
+			else
+				print("Error: Build stage "+s+" not found!");
+		}
+	}
+}</pre>

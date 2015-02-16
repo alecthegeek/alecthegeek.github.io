@@ -1,0 +1,51 @@
+---
+layout: post
+title: Handy Hack for Git refugees in Subversion land
+tags:
+- Git
+- LinkedIn
+- Mac
+- Open Source Software
+- Software Development
+- Work Practices
+status: publish
+type: post
+published: true
+meta:
+  _wpas_done_10808: '1'
+  jabber_published: '1353667333'
+  email_notification: '1353667334'
+  _edit_last: '451289'
+  _publicize_done_external: a:1:{s:8:"linkedin";a:1:{s:10:"_KTp3oZ89I";b:1;}}
+  _wpas_skip_10808: '1'
+---
+When you're a <a title="Git Home Page" href="http://git-scm.com/" target="_blank">Git</a> user working on a project using <a title="Subversion Home Page" href="http://subversion.apache.org/" target="_blank">Subversion</a> (SVN) using the <a title="man page for git svn" href="http://www.kernel.org/pub/software/scm/git/docs/git-svn.html" target="_blank">Git SVN</a> client is a great option, I've been using it for the last twelve months and it works really well. However sometimes it's not quite good enough when things like <a title="Ant Home Page" href="http://ant.apache.org/" target="_blank">Ant</a> scripts are written for SVN.
+
+My colleagues use <a title="TortoiseSVN" href="http://tortoisesvn.net/" target="_blank">TortoiseSVN</a>. which among other things provides support for standard commit message templates. This uses a SVN property called "<a title="information about tsvn:logtemplate" href="http://tortoisesvn.net/docs/nightly/TortoiseSVN_en/tsvn-dug-propertypage.html#tsvn-dug-propertypage-tsvn-props" target="_blank"><code>tsvn:logtemplate</code></a>", is a specific feature of ToirtoiseSVN and it not standard in the SVN client. Git has a simliar feature using the config value <code>commit.template</code> and it's standard on the <code>git</code> client.
+
+Today I wrote an <code>svn</code> wrapper script to provide the standard template feature to the command line SVN client. You may find it useful. It's written for OS X and assumes you have Git configured and SVN Installed via Mac <a title="Mac Homebrew project" href="http://mxcl.github.com/homebrew/" target="_blank">Homebrew</a> -- however it will be trivial to modify it for your environment,
+
+The script does does a number of things:
+<ol>
+	<li>It passes all SVN sub-commands, except commit, to svn without change</li>
+	<li>It checks all the arguments to if the commit message has already been supplied (run the command and exit)</li>
+	<li>It checks to see if the "tsvn:logtemplate" is set</li>
+	<li>If the TortoiseSVN template is <span style="text-decoration:underline;">not</span> set then it attempts to find the Git template</li>
+	<li>If that fails then it falls back to an internal template</li>
+	<li>The template is placed in a file and another  message file</li>
+	<li>The user is prompted to edit the message file</li>
+	<li>The updated message file is checked against the template -- if the user has not made a change the commit is aborted</li>
+	<li>The svn client is called with the message file.</li>
+</ol>
+
+Updated March/2013 - Somehow an stupid bug crept in. Now squashed.
+Updated Jan/2013
+I have added a new feature when using <code>svn update</code>:
+<ol>
+<li>Check if the working copy has uncommitted changes. NB Files that are not registered are ignored in this check</li>
+<li>Abort the <code>update</code> if files are already modified</li>
+</ol>
+
+YMMV
+
+{% gist 4134951 %}

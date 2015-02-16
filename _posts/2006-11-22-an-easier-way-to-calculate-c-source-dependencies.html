@@ -1,0 +1,16 @@
+---
+layout: post
+title: An easier way to calculate C source dependencies
+tags:
+- Software Development
+status: publish
+type: post
+published: true
+meta: {}
+---
+Those who follow the single makefile approach outlined by <a href="http://www.canb.auug.org.au/%7Emillerp/README.html">Peter Miller</a> in his excellent paper <a href="http://aegis.sourceforge.net/auug97.pdf">Recursive Make Considered Harmful</a> may be interested in the <code>-MT</code> option to the GCC preprocessor, introduced after Peter wrote the paper.
+
+This switch allows the target name to be explicitly defined, multiple times if required, instead of being derived from the source file name. An sample command to be inserted into the makefile (instead of using depend.sh in Peter's example) is
+<blockquote><code>$(CC) $(CFLAGS) -MM -MG -MT $(OBJ_DIR)/$(*).o -MT $(DEP_DIR)/$(*).d -MF $@  $&lt;</code></blockquote>
+Notice that I keep my dynamic dependency files in a separate directory to the source code.
+<p class="poweredbyperformancing">powered by <a href="http://performancing.com/firefox">performancing firefox</a></p>

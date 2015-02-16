@@ -1,0 +1,45 @@
+---
+layout: post
+title: Windows Explorer 'Open Bash Here'
+tags:
+- Cygwin
+- LinkedIn
+- Work Practices
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '451289'
+---
+Updated May 2008
+
+As mentioned by Andrew below this is all too hard now that we have the chere utility. At the cygwin shell prompt try the following
+<code>
+chere -i -c -n -t rxvt -s bash -o &quot;-sl 2500 -fg lightblue -geometry 80x25 -bg midnightblue -sbt 10 -title bash&quot; -e &quot;Open Bash shell here&quot;
+</code>
+If you want a shortcut to run bash for your home directory try
+<code>
+C:\bin\run.exe C:\bin\rxvt.exe -sl 2500 -fg lightblue -geometry 80x25 -bg midnightblue -sbt 10 -title bash -e /bin/xhere /bin/bash.exe %HOME%
+</code>
+
+-------------------------------------------------------------------------------
+For users of <a href="http://www.cygwin.com/">Cygwin</a> on Windows who like the <a href="http://www.microsoft.com/windowsxp/downloads/powertoys/xppowertoys.mspx">Open Command Window Here</a> power toy
+
+I took <a href="http://dam.mellis.org/2004/06/open_cygwin_bash_shell_here/">this</a> hack and <a href="http://www.cygwin.com/ml/cygwin/2001-08/msg01338.html">this</a> hack and combined them to make the following hack. It works on both directories and drives in Windows Explorer, and creates a visually attractive login shell (at least I think so).
+<pre>Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\Directory\shell\bash]
+
+@="Open Bash Shell Here"
+
+[HKEY_CLASSES_ROOT\Directory\shell\bash\command]
+
+@="c:\\\\bin\\\\bash.exe --login -i -c 'cd \"`cygpath \"$*\"`\";exec rxvt -sr -sl 2500 -fg lightblue --geometry 80x25 -bg midnightblue -sb -e bash' bash %L"
+
+[HKEY_CLASSES_ROOT\Drive\shell\bash]
+
+@="Open Bash Shell Here"
+
+[HKEY_CLASSES_ROOT\Drive\shell\bash\command]
+
+@="c:\\\\bin\\\\bash.exe --login -i -c 'cd \"`cygpath \"$*\"`\";exec rxvt -sr -sl 2500 -fg lightblue --geometry 80x25 -bg midnightblue -sb -e bash' bash %L"</pre>

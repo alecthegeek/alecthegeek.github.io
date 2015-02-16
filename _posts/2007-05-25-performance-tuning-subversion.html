@@ -1,0 +1,32 @@
+---
+layout: post
+title: Performance tuning Subversion and 'bulk CIs'
+tags:
+- Software Configuration Management
+- Software Development
+status: publish
+type: post
+published: true
+meta: {}
+---
+Information from IBM on SVN performance when managing binary files and directories of files
+
+<a href="http://www.ibm.com/developerworks/java/library/j-svnbins.html?ca=dgr-lnxw01javapts">Performance tuning Subversion</a>
+<blockquote>Performance tuning Subversion</blockquote>
+The basic conclusion to be drawn from the article is that
+<ul>
+	<li>Don't store deltas of binary files. It takes too long</li>
+	<li>Compress binaries before storing them</li>
+</ul>
+Another technique discussed in the article the archiving of a complete directory structures into a single file. This single file is then placed in Subversion as a configuration item (CI -- the technical term for a file or anything else placed under version control).
+
+This technique is very useful (ignoring issues relating to performance) in certain limited version control scenarios. For example:
+
+Scenario1:
+
+When a tool generates a substantial number of files (e.g. a code generator) it often does not make sense to track changes to individual files because they all be regenerated the next time the tool is used.
+
+Scenario2:
+
+A package is released as a set of files. After the release build the complete set of file is managed as a single CI. Any change to a small part of the system creates a complete new release.
+<p class="poweredbyperformancing">Powered by <a href="http://scribefire.com/">ScribeFire</a>.</p>

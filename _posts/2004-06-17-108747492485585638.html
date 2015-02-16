@@ -1,0 +1,76 @@
+---
+layout: post
+title: Why IDE's really suck
+tags:
+- Software Development
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '451289'
+---
+<h1>Running IDE Projects</h1>
+I have always been less than enthusiastic about using integrated development environments (IDEs). I saw them as very specific applications that:
+<ol>
+	<li>Hide too much necessary detail from the developer and deny the level of control and understanding often required in anything other than toy systems development</li>
+	<li>Encouraging sloppy programming practice because too much just happened under the hood</li>
+</ol>
+Recently however I have started using <a href="http://www.eclipse.org/">Eclipse </a>for occasional work (I can use it for Java, C++ and Perl) and I have been working with a customer who uses Borland <a href="http://borland.com/jbuilder/">JBuilder.</a> I can see some virtue in such tools, indeed for todays complex environments (i.e. .NET and J2EE) they would appaer to be essential. However pitfalls still lurk to trap the unwary. Here are my some observations:
+<ol>
+	<li>Development teams that use IDE's need a common
+<ol>
+	<li>IDE standard operating environment (SOE) that documents:
+<ol>
+	<li>Which IDE's will be supported</li>
+	<li>How such tools will be set up in a consistent fashion. This
+affects such things as
+<ol>
+	<li>Names and locations</li>
+	<li>Hierarchy of settings (projects vs. user vs. installation)</li>
+</ol>
+</li>
+</ol>
+</li>
+	<li>Project library management standards e.g.
+<ol>
+	<li>A consistent CLASSPATH in Java that is used by all developers</li>
+	<li>Link edit options in other languages</li>
+</ol>
+</li>
+</ol>
+</li>
+	<li>Software Configuration Management (SCM) approach
+<ol>
+	<li>Needs a common directory set and file naming</li>
+	<li>Re-factoring needs to be addressed (how does one manage re-factoring in an environment with enforced changed control?)</li>
+	<li>Should IDE specific files (e.g. project files) be placed under SCM control?</li>
+	<li>Specific for Serena <a href="http://serena.com/products/dimensions/">Dimensions</a> configuration management tool
+<ol>
+	<li>One workset per IDE project</li>
+	<li>IDE Project directory to included in workset directory structure</li>
+</ol>
+</li>
+	<li>A documented approach for the management of shared code and libraries across multiple projects. Who is responsible for
+<ol>
+	<li>Identifying change</li>
+	<li>Implementing changes</li>
+	<li>Accepting and migrating changes into projects</li>
+</ol>
+</li>
+</ol>
+</li>
+	<li>Building software for test and release environments
+<ol>
+	<li>Software build must be done via a scripting process.
+<ol>
+	<li>Some IDE's support this (e.g. JBuilder uses the -build
+switch).</li>
+	<li>Others will required the creation of Ant, make scripts or the use of similar tools.</li>
+	<li>Some IDE's will assist the in the generation of the make or Ant script</li>
+</ol>
+</li>
+	<li>Builds must be done on configuration managed environment, not on developers PCs.</li>
+</ol>
+Updated 4/Feb/07</li>
+</ol>
+Of course some of these issues need to be addressed even wothout and IDE. However in my experience and IDE makes a lot of assumptions and without making some explicit descisions it is easy to get caught.

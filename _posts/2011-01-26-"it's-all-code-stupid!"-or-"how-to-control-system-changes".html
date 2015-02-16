@@ -1,0 +1,37 @@
+---
+layout: post
+title: ! '"It''s ALL code stupid!" or "How to Control System Changes"'
+tags:
+- Application Lifecycle Management
+- Change Audit
+- Configuration Audit
+- Software Configuration Management
+status: draft
+type: post
+published: false
+meta:
+  _edit_last: '451289'
+---
+I saw a headline the other day, "Infrastructure as code", in a devops context and my immediate reaction was "but doesn't everyone do that?". I thought it might be useful to articulate some of the simple principles and benefits that underpin this approach. In this post I am talking about changes that are not part of application code, examples include: database schema upgrades; OS patches; updates to application configuration files; application deployment; OS deployment; virtual machine provisioning and management; network configuration (devices and computers).
+
+Benefits:
+<ol>
+	<li>Automation: Reduces errors, improves productivity and enhances job satisfaction</li>
+	<li>Change Control: Supports governance processes and assists with forensic analysis</li>
+</ol>
+Principles:
+<ol>
+	<li>Changes are applied by scripts or specified in appropriate data files (e.g. SQL scripts, Chef recipes, XML data files)</li>
+	<li>All changes are applied the same way to pre-production testing and production.</li>
+	<li>Scripts and data files are maintained in a version control and are subject to change control.</li>
+</ol>
+Changes to systems and infrastructure can now be approved and managed in the same way as changes to applications. Note that this does <em>not</em> govern management of uncontrolled changes (change auditing and remediation) which is needed to complete the circle.
+
+What if changes cannot be automated? There are some circumstances where technology constraints (or occasionally process requirements) make manual activity necessary.:
+<ol>
+	<li>Look for a technology solution. e.g. running the process via a GUI testing framework such as HMTL::Mechanize</li>
+	<li>Create a detailed run sheet and check list, to represent the activity, that is maintained as an artefact  (consider scanning in the completed check list to be  attached to the change record)</li>
+</ol>
+Tools Cucumber, Cucumber Nagios, Nagios?
+
+See Behaviour Driven Configuration

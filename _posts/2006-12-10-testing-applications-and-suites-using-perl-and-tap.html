@@ -1,0 +1,30 @@
+---
+layout: post
+title: Testing Applications and Suites using Perl and TAP
+tags:
+- Open Source Software
+- Perl
+- Software Development
+status: publish
+type: post
+published: true
+meta: {}
+---
+Perl has excellent <a href="http://perl.net.au/wiki/Perl_testing_tools">testing</a> support with frameworks such as <a href="http://perldoc.perl.org/Test/More.html">Test::More</a>, these tools present test results in a standard text format call <a href="http://perl.net.au/wiki/Perl_testing_tools#TAP:_Test_Anything_Protocol">TAP</a>.
+
+As far as I can tell all, of the current CPAN testing frameworks are designed to test Perl Modules (.pm files). Because of this they are designed to be consumers of the services provided by the modules under test. (Update 10/Jan/07 -- <a href="http://alecthegeek.wordpress.com/2007/01/09/more-on-testing-perl-applications/">Correction</a>) <!--more-->
+However I don't write many modules -- most of what I do are either:
+<ol>
+	<li>Smaller programs, i.e. programs that are themselves the consumer of services.</li>
+	<li>Testing larger system, such as <a href="http://headwestsoftware.com/products/alm_suite.html">ALM Suite</a>. This requires testing the across multiple applications and the information flows between them, many of these applications are not even written in Perl. The problem is more complicated if you consider that
+when testing integrations between the suite compoenenets it is necessary to track the effect of tests across multiple applications and their data repository during a single test transaction.</li>
+</ol>
+At the "extreme" end of my requirements is the need to provision a complete virtual test environment to test the installation process of a product suite and run a full feature regression test, this is certainly possible as <a href="http://use.perl.org/%7Esamtregar/journal/">Sam Tregar</a> has <a href="http://www.ddj.com/184416172">written</a>. Whilst this can be done with current techniques, for example the use of Perl to control VMWare test environments, I need to get a better understanding of the best way to use this with TAP. I am also considering using <a href="http://user-mode-linux.sourceforge.net/new/index.html">user mode Linux</a> rather than full virtulisation as well because it consumes less system resources.
+
+Here are some speculations on how I might approach this:
+<ol>
+	<li>Take my application code and re-factor it into a module and a thin application wrapper. The wrapper can then be replaced with the TAP testing program</li>
+	<li>Use <a href="http://search.cpan.org/dist/Expect/">Expect.pm</a> to implement the TAP testing program and run the application under test. Needs further analysis</li>
+	<li>Use tools such as <a href="http://search.cpan.org/dist/WWW-Mechanize/">WWW::Mechanize</a>
+to test a web application (thanks to <a href="http://www.stonehenge.com/merlyn/">Randal L Shwartz</a> from <a href="http://www.stonehenge.com/index.html">Stonehenge</a> for showing me how to do this at the <a href="http://www.osdc.com.au/">OSDC</a> <a href="http://www.osdc.com.au/papers/tutorials.html#test">tutorial</a> this week)</li>
+</ol>

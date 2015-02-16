@@ -1,0 +1,21 @@
+---
+layout: post
+title: ! 'Top Tip: Installing Cygwin on Windows'
+tags:
+- Cygwin
+- Windows
+- Work Practices
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '451289'
+---
+If you are like me, a <a title="Explain *nix" href="http://en.wikipedia.org/wiki/*NIX" target="_blank">*nix</a> user (sometimes) trapped in MS Windows land, then you'll come to depend on the Cygwin utilities. Their use is pretty straight forward, but you can make life a little bit easier for yourself:
+<ul>
+	<li>When installing Cygwin select the option for default UNIX / binary style line endings for files. When selecting DOS style text files I've had subsequent problems with Perl CPAN modules failing unit tests and bash failing to process login scripts</li>
+	<li>After the install issue a <code>mount -c /</code> command, this means that you can access drives without using the /cygdrive mount point (i.e. <code>/c/Program\ Files</code> instead of <code>/cygdrive/c/Program\ Files</code>)</li>
+	<li>NB This is<a href="http://cygwin.com/faq/faq-nochunks.html#faq.setup.c"> <strong>not</strong> recommended practice</a>, but for years I have been installing cygwin into the root of my C: drive, apparently without ill effects, and it does make life slightly easier. However you will need to modify startxwin.bat (and startxdmcp.bat if used) and make sure that the environment variable CYGWIN_ROOT is defined as an empty string.</li>
+	<li>Create a shortcut to invoke bash, I use "<code>C:\bin\run.exe C:\bin\rxvt.exe -sl 2500 -fg lightblue -geometry 80x25 -bg midnightblue -sbt 10 -title bash -e /bin/xhere /bin/bash.exe %HOME%</code>" (noting of course that I install into the root of the C: drive). You can also use chere to install a 'Open Bash here' <a title="Create an Open Bash Here in Explorer" href="http://alecthegeek.wordpress.com/2006/10/19/windows-explorer-open-bash-here/" target="_blank">option</a> in Windows Explorer</li>
+</ul>
+Anyone else have anything to pass on?

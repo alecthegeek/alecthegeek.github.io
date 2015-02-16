@@ -1,0 +1,30 @@
+---
+layout: post
+title: I have  Subversion based CM Building working
+tags:
+- Software Configuration Management
+- Software Development
+status: publish
+type: post
+published: true
+meta: {}
+---
+As  <a href="http://alecthegeek.wordpress.com/2006/11/12/no-support-for-building-from-subversion/">mentioned</a> previously I have been trying to get a Configuration Management based build running. I am pleased to say that today I have managed to get it working. Here you can see the result of a build -- the Subverion revision has a property BFL (Built From List) that displays the files used to build the program. It show's all the source file's, including their revision number and last modification date.
+
+<!--more-->
+<code> $ svn propget BFL BuildProject1/00000005/bin/main
+file:///home/alec/Voga/laptop/gigs/OSDC/repo/build/BuildProject1/\
+00000005/h/a.h 1 2006-11-02 21:11:01 +1100 (Thu, 02 Nov 2006)
+file:///home/alec/Voga/laptop/gigs/OSDC/repo/build/BuildProject1/\
+00000005/h/b.h 1 2006-11-02 21:11:01 +1100 (Thu, 02 Nov 2006)
+file:///home/alec/Voga/laptop/gigs/OSDC/repo/build/BuildProject1/\
+00000005/src/a.c 1 2006-11-02 21:11:01 +1100 (Thu, 02 Nov 2006)
+file:///home/alec/Voga/laptop/gigs/OSDC/repo/build/BuildProject1/00000005/src/b.c 1 2006-11-02 21:11:01 +1100 (Thu, 02 Nov 2006)
+file:///home/alec/Voga/laptop/gigs/OSDC/repo/build/BuildProject1/00000005/src/main.c 6 2006-11-13 07:18:23 +1100 (Mon, 13 Nov 2006)
+</code>
+
+Revised 12/Dec/06:
+The material is now  <a href="http://alecthegeek.wordpress.com/2006/12/08/slides-and-example-scripts/" title="Slides and Example Scripts">here</a> <a href="http://www.osdc.com.au">
+<img src="http://www.osdc.com.au/promotion/_img/osdc2006a.gif" alt="OSDC 2006" align="right" height="40" width="200" />
+</a>
+<p class="poweredbyperformancing">powered by <a href="http://performancing.com/firefox">performancing firefox</a></p>

@@ -1,0 +1,71 @@
+---
+layout: post
+title: Setting up a Perl development environment
+tags:
+- Open Source Software
+- Perl
+- Software Development
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '451289'
+  jabber_published: '1292045595'
+  email_notification: '1292045596'
+---
+Here are my suggestions on how to set up your Perl development environment:
+
+(NB If you are a Perl novice then start <a title="Learning Perl on Perl.Net" href="http://perl.net.au/wiki/Learning_Perl" target="_blank">here</a>)
+<ol>
+	<li>Install a system copy of Perl
+<ol>
+	<li>Windows: Strawberry Perl</li>
+	<li>UNIX developer with a Windows desktop? Use Cygwin</li>
+	<li>Linux and OS X: Your operating system should have Perl.</li>
+	<li>UNIX: I built my own and manually installed the modules. Easier than it sounds.</li>
+</ol>
+</li>
+	<li>Install a system copy of Perl
+<ol>
+
+	<li>Download a copy of the Perl <a href="http://perldoc.perl.org/">Documentation</a> and create a convenient shortcut</li>
+	<li>Configure your favourite editor for Perl. There are some guidelines on <a title="Perl.Net Developer Tools suggestions" href="http://perl.net.au/wiki/Perl_developer_tools" target="_blank">Perl.net</a></li>
+	<li>A decent version control tool (I use Git)</li>
+	<li>Install <a href="http://search.cpan.org/dist/Perl-Critic/bin/perlcritic" target="_blank">PerlCritic</a>, <a title="Perltidy project page" href="http://perltidy.sourceforge.net/" target="_blank">Perltidy</a>, <a title="Devel::REPL - a modern perl interactive shell" href="http://search.cpan.org/~doy/Devel-REPL-1.003012/lib/Devel/REPL.pm" target="_blank">Devel::REPL</a>, <a title="Module Starter Perl Best Practices version" href="http://search.cpan.org/~dconway/Module-Starter-PBP-v0.0.3/lib/Module/Starter/PBP.pm" target="_blank">Module::Starter::PBP</a>, <a title="getopt::long CPAN Module" href="http://search.cpan.org/dist/Getopt-Long/lib/Getopt/Long.pm">GetOpt::Long</a> and <a title="RegEx Coach Home Page" href="http://weitz.de/regex-coach/" target="_blank">RegEx Coach</a></li>
+	<li>Depending on the work you do consider the following modules as part of your 'base' kit:
+<ol>
+	<li>DBI::SQLite for DB test mocking (NB Depending on your testing needs you will also need other Test modules)</li>
+	<li><a title="Moose OO Programming Framework" href="http://search.cpan.org/dist/Moose/lib/Moose/Manual.pod" target="_blank">Moose</a> for OO programming</li>
+	<li>See the <a title="Recommended Modules on Perl.Net" href="http://perl.net.au/wiki/Recommended_Perl_Modules" target="_blank">list</a> at Perl.Net</li>
+</ol>
+</li>
+	<li>Run "<code>perl -MModule::Starter::PBP=setup</code>" and accept the defaults</li>
+	<li>Modify the templates used by your editor and Module::Starter so that .pl have the following additional code:
+``` perl
+	# Main program Entry point
+	sub main {
+
+	use Getopt::Long qw(GetOptionsFromArray);
+	# TODO Add options variables here
+	# GetOptionsFromArray(\@_,
+	#TODO Add option processing here
+	#);
+
+	#TODO Add application code here
+	}
+
+	return main(@ARGV)  unless caller();
+	1; # So we can treat this as a module for test purposes
+```
+</li>
+</ol>
+Use:
+<ul>
+	<li>Have the local Perl docs open in your browser -- there is a build in search engine</li>
+	<li>Test perl assumptions about how Perl will behave by using Regex Coach and re.pl (re.pl runs from a terminal)</li>
+	<li>Write your script (and modules) as a set of subroutines that you can test using  Test::More and it's siblings. You can test script subroutines by writing test scripts in the normal fashion and then running prove with the command line options "<code>-I ./lib -I .</code>"</li>
+	<li>Get good with your editor</li>
+	<li>Use the branching feature of your version control tool to manage features (you are using Git right?)</li>
+	<li>Don't be afraid to refactor and fix stuff as you discover issues with previously written code</li>
+</ul>
+Caveats: This is based on my personal experience and preferences. Use it as a starting point only. I currently use Perl on Cygwin, Solaris and Linux with the Vim or vi editor. I tend to hack data munching scripts and I don't use OO programming. YMMV.

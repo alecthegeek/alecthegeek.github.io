@@ -1,0 +1,24 @@
+---
+layout: post
+title: ! 'Handy Hack: Make failure optional'
+tags:
+- Perl
+- Software Development
+- Work Practices
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '451289'
+---
+When programming it's always a good idea to check return status to make that no error has occured. In Perl we often write
+
+<code>somethingWeWantToDo or die "we failed because .....";
+</code>
+However when running in a test environment we may not have all our infrastructure in place to make our operation pass when needed (ideally we should use<a title="Mock Objects" href="http://en.wikipedia.org/wiki/Mock_object" target="_blank"> mock objects</a> or some other testing framework). A  hack is to pass a flag into the program telling it that we are running in a test jig and we don't care if our operation fails. The solution is simple, but a pain to work out after lunch...
+
+<code>somethingWeWantToDo or $testJig or die "we failed because .....";</code>
+
+If we fail and we are not using our test jig then we will exit with the appropriate diagnostics. i.e. failure is optional in a test jig
+
+This is much easier than cluttering the code with conditonal if statements.

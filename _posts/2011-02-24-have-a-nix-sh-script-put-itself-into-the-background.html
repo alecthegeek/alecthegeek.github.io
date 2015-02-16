@@ -1,0 +1,34 @@
+---
+layout: post
+title: Have a *nix sh script put itself into the background
+tags:
+- Linux
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '451289'
+  jabber_published: '1298513395'
+  email_notification: '1298513396'
+---
+In the Unix Bourne style shell languages (e.g. sh, bash, ksh etc) you can put a long running command (or another script)
+into the background so that control returns to the user. The original idea is that you can perform other work whilst the
+background process continues. This is achieved by adding a ```&```, for example ```$ myVeryLongRunningCommand and options > /tmp/myOutput &```
+
+It would be nice to be able to have scripts place themselves in the background, when appropriate, without the user having to worry about and I assumed there would be a "shell'ish" way to do that -- however I couldn't find anything so I knocked something up in a hurry. I put it here for future generations and in the hope that improvements will be suggested.
+
+``` bash
+#! /bin/sh
+
+if [[ &quot;$_myBackGround&quot; != &quot;_backGroundFlag&quot; ]]; then
+ nohup /bin/sh -c &quot;_myBackGround=_backGroundFlag; export _myBackGround;$0 $*&quot; &gt; /tmp/$0.$$.stdout 2&gt; /tmp/$0.$$.stderr &amp;
+ echo $0 passed to background with arguments &quot;$*&quot;. NB stderr is /tmp/$0.$$.stderr and stdout is /tmp/$0.$$.stdout
+ exit
+fi
+
+#  Your script goes here e.g.
+
+echo hello: My arguments are $0 $*
+
+echo Hello -- this is an error &gt;&amp;2
+```

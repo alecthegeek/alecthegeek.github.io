@@ -1,0 +1,87 @@
+---
+layout: post
+title: Installing a Serena Dimensions standalone system
+tags:
+- Application Lifecycle Management
+- Serena Dimensions
+- Software Configuration Management
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '451289'
+---
+Many Dimensions consultants, trainers and administrators have their own personal recipe on setting up a standalone Dimensions CM environment. Here is my latest:
+<!--more-->
+<ol>
+	<li>Base OS: Windows XP Pro SP2 or SP3</li>
+	<li>Ensure you have MS .NET framework 1.1 (or above?) installed</li>
+	<li>Create Windows user accounts. e.g. for Payroll dmsys, user2, user3,..., user6
+<ul>
+	<li>make sure that all Dimensions users have a password</li>
+</ul>
+</li>
+	<li>Install
+<ol>
+	<li>Adobe Acrobat Reader</li>
+	<li>Install an decent editor, e.g. <a title="Vim editor home page" href="http://www.vim.org/" target="_blank">Vim</a>, to edit configuration files (some are in UNIX text format and confuse notepad)</li>
+	<li>MS Loopback Network Adapter (described in the Serena Installation Manual Appendix A)</li>
+	<li>Java 2 SDK</li>
+	<li>Eclipse Java IDE (if using the IDE integration) and add to start menu</li>
+	<li><a href="http://alecthegeek.wordpress.com/2007/09/12/installing-james-mta-on-windows/">James</a> Mail Transport Agent and create email accounts into James as described</li>
+	<li>Cygwin (required to support directory items and can be used for software building). I place the Cygwin bin directory on the Windows path rather copy the software to the Dimensions prog directory as suggested in the Serena documentation</li>
+	<li><a title="7-Zip archive utility" href="http://www.7-zip.org/" target="_blank">7-Zip</a> (from my experience the compressed folders utility supplied with Windows has trouble with the Zip archives associated with some of this software)</li>
+</ol>
+</li>
+	<li>Create user accounts in MS Outlook Express (exact method will depend on how you plan to use this set-up)</li>
+	<li>Configure IE 6 not to re-use windows to open shortcuts</li>
+	<li>Disable IE pop up blocker</li>
+	<li>Install Oracle as described in the Serena documentation
+<ul>
+	<li>Specify the loop back server name when configuring Oracle Networking</li>
+</ul>
+</li>
+	<li>Install Dimensions server and Clients as described in the Serena documentation
+<ul>
+	<li>specify the loop back host name as the mail server</li>
+	<li>Install and configure the license server if not using EVAL licences. Use the loop back host name</li>
+	<li>NB After installing Dimensions 10.1.1 the EVAL license (if used) may fail. Stop Dimensions Server and Dimensions Tomcat, install Dimensions 10.1.3 upgrade. Evaluation license should now work.</li>
+</ul>
+</li>
+</ol>
+Optional Steps:
+<ol>
+	<li>Create a dummy base database and use that as the connection paramerter in DM_ROOT/dfs/listner.dat</li>
+	<li>Increase the server time outs so that users are not logged off too quickly</li>
+	<li>Install Dimensions 10.1.3 documentation</li>
+	<li>Install Dimensions Make (used by command line upload and download utilities)</li>
+	<li>Install Oracle SQL Developer to browse published views and generate reports</li>
+	<li>If running a training course then
+<ul>
+	<li>copy any training files and materials</li>
+	<li>Set up users default worksets and directories (see SCWS command)</li>
+</ul>
+</li>
+	<li>MS Word, Excel and Powerpoint (or use OpenOffice) to demonstrate using ordinary office tools with Dimensions</li>
+</ol>
+Assumptions:
+<ol>
+	<li>Dimensions 10.1.3</li>
+	<li>Oracle (supplied by Serena)</li>
+	<li>Primary network adaptor uses DHCP (if IP is static then skip step 4.3)</li>
+</ol>
+TODO:
+<ol>
+	<li><span style="text-decoration:line-through;">Control Centre setup</span>, not in Dimensions 10.1.3</li>
+	<li>Test OpenOffice use</li>
+	<li>Find a better alternative to Oracle SQL Developer</li>
+</ol>
+Notes
+<ol>
+	<li>Dimensions 10.1.3 can only be installed as upgrade to Dim 10.1.x</li>
+	<li>I do all work from a single account on Windows (not dmsys). I provide the appropriate Windows credentials as required to each Dimensions client. If required I can use the runas command e.g. <code>runas /profile /user:dmsys cmd.exe</code>
+<ul>
+	<li>I also set up all email accounts under a single profile in Outlook Express with filters to place messages for the appropriate account in correctly names email sub folders</li>
+</ul>
+</li>
+</ol>

@@ -1,0 +1,20 @@
+---
+layout: post
+title: What does Git is a "Pure content tracker" mean?
+tags: []
+status: draft
+type: post
+published: false
+meta:
+  _edit_last: '451289'
+---
+You often see Git <a title="Git Design overview" href="https://git.wiki.kernel.org/index.php/Git#Design" target="_blank">described</a> as a content tracker.  The intresting question is "What's so different about that?". The answer was brought home to me the other day.
+
+At $job I have to use a commercial ALM tool, which I shan't name to protect the guilty, that tracks not the contents of file system objects, but their history. This can lead to more merging than necessary, as follows.
+
+Sally and Joan are working on the same code base -- Sally is working on a new feature and Joan is doing <a title="Define BAU" href="http://en.wikipedia.org/wiki/Business_as_usual_%28business%29" target="_blank">BAU</a> configuration updates. They of course are both working on separate branches. The workflow is as follows
+<ol>
+	<li>Joan makes a BAU update and commits it to mainline</li>
+	<li>Sally takes the BAU and updates her branch. Normally the changes do not impact any files that Sally is currently working on</li>
+	<li>Sally commits to her branch. All the changes from her work area are added into the repo, even the</li>
+</ol>

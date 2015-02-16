@@ -1,0 +1,21 @@
+---
+layout: post
+title: ! 'Top Tip: Cygwin Perl has problems running with UNC path names'
+tags:
+- Cygwin
+- Perl
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '451289'
+---
+When running Cygwin Perl using libraries that live on <a title="What is UNC?" href="http://en.wikipedia.org/wiki/Path_(computing)#Uniform_Naming_Convention" target="_blank">UNC</a> paths (e.g. when running prove with the -l option) Perl will croak because it is unable to load the library. An example error message will look something like:
+
+<code>t/00.load.............Can't open perl script ""-I//server/sharename/work/mymodule/lib"": No such file or directory</code>
+
+The fix is to map the UNC path to a drive letter and use the Cygwin mount point (e.g. '/cygdrive/z/work/mymodule') as the path instead.
+
+The command is
+
+<code>net use z: '\\server\sharename'</code>

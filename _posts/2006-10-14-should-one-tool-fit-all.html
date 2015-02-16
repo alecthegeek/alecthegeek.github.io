@@ -1,0 +1,36 @@
+---
+layout: post
+title: Should one tool fit all?
+tags:
+- Software Development
+status: publish
+type: post
+published: true
+meta: {}
+---
+<title></title>   	 	 	 	 	 	 	 	<!-- 		@page { margin: 2cm } 		P { margin-bottom: 0.21cm } 	-->
+<p class="western" style="margin-bottom:0.5cm;">After Simon's interesting <a href="http://alecthegeek.wordpress.com/2006/10/12/back-from-the-osdclub-meeting/">talk</a> on Thursday I got to thinking about using the correct tool for the job; is it better to use smaller specific tools, such as sed, or one general purpose tool like Perl.</p>
+Using sed, for example, to perform text transformation does have a couple of advantage
+<ol>
+	<li>
+<p class="western" style="margin-bottom:0;">Performance -- the 	specialist tool can often complete the job a lot faster</p>
+</li>
+	<li>
+<p class="western">A more appropriate way of expressing a 	solution -- specialist languages, such as sed, can provide more 	elegant way of solving a particular problem. As Simon pointed out, 	this may actually suggest a completely different and better way to 	write the program.</p>
+</li>
+</ol>
+<p class="western">However there are two counter arguments.</p>
+
+<ol>
+	<li>
+<p class="western" style="margin-bottom:0;">The amount of 	mental effort required to learn and program in, possibly many, 	different mini languages. This can make maintenance in particular 	very expensive</p>
+</li>
+	<li>
+<p class="western">Over time programs often grow and become more 	complex. Mini languages can have trouble scaling with this 	complexity and elegant solutions can become nightmarish very 	quickly. It was interesting to see some of the larger example 	scripts on Wednesday, they made the worst Perl script look elegant 	and expressive.</p>
+</li>
+</ol>
+<p class="western">So what is the answer? Well in true consulting style the answer is 'It depends'.</p>
+<p class="western">Small jobs with very fixed scope may well benefit from the use of specialist tools, in particular when these jobs are running frequently and performance improvements accumulate each time it is run.</p>
+<p class="western">However often several different small tools have to tied together into a script and very quickly it becomes apparent that a more powerful tool such as Perl (or Python, Ruby etc.) should have been used. Unfortunately if can also become an exercise in self indulgence to see how many 'clever' solutions can be packed into a single script.</p>
+<p class="western" style="margin-bottom:0;">&nbsp;</p>
+<p class="poweredbyperformancing">powered by <a href="http://performancing.com/firefox">performancing firefox</a></p>

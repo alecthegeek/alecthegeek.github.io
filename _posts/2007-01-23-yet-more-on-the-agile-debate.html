@@ -1,0 +1,34 @@
+---
+layout: post
+title: Yet more on the Agile debate
+tags:
+- Personal Opinion
+- Software Development
+- Work Practices
+status: publish
+type: post
+published: true
+meta: {}
+---
+Andrew very rapidly replied to my last post about Agile and as usual had much to say that was worth reading. However there was one issue I wanted to pick up on.
+
+<a href="http://aabs.wordpress.com/2007/01/23/more-on-the-agile-debate/">More on the Agile Debate « The Wandering Glitch 2</a>
+<blockquote>Everything changes around us because those who ought to have given more thought to the requirements have postponed thinking (indefinitely?).</blockquote>
+Perhaps the easiest way is to illustrate a counterpoint is with a true story from my own chequered past!
+<!--more-->
+When the first blush of youth was still upon me (well I was in my late twenties actually) I was asked to design a communication API for a suite of financial applications running in MS/DOS.
+
+The business requirements were, in the first instance, that it should support a protocol called RJE 2780 (I'm surprised I can remember all this detail) and then later support any communication required e.g. fax, telex, TCP/IP, SNA/3270 etc etc. (It was so long ago that TCP/IP was at the bottom of the list). It also had to be able to support multiple protocols and devices at once.
+
+I had worked previously on financial terminals and I'd seen such API's before so I carefully sat down and designed an open, flexible, communication manager who's internals were as memory efficient as possible (remember that MS/DOS has severe memory constraints). It was a multiple layer manager with chained parameter blocks -- it had an internal architecture that attempted to treat third party drivers and hardware as plug-ins for future expansion. The API supported arbitrary connection parameters (SNA needed a lot more information than a fax number for instance). I really thought about how I could make it a useful piece of software for the company going forward and of course I was very proud of it.
+
+It took me many months to design, write and debug (it was written in C and used a lot of pointers for flexibility and efficiency -- I only allocated the memory I needed at the time). Eventually it went live supporting the aforementioned 2780.
+
+The software then went into maintenance mode as the company decided to change direction and not develop it any further. I spend nearly a week taking the support engineer through my design and implementation. He was aghast at the complexity, although claimed he understood the reasons for my design and said it was a shame that it was redundant.
+
+The point is I could have implemented a simpler system to start with, whilst of course taking care not to lock myself into any costly long term decisions, and provided the company with the system a lot earlier. Who knows it might have stopped them killing the product. If we had taken the decision to support additional protocols after getting the first release out then I could have factored that additional cost into the follow up project, having already created some value and learned valuable lessons from real world use.
+
+It is a hard call for sure and requires a lot of experience, wisdom and a certain amount of luck to get right. But I have been party to many missed deadlines and unmet requirements not to consider that there ought to be a middle way, even if it feels like your picking your way through a minefield sometimes. As <a href="http://www.cogentconsulting.com.au/blogs/steveh/">Steve Hayes</a> says, we work in a <a href="http://www.cogentconsulting.com.au/blogs/steveh/2006/06/when_agile_doesnt_work.html">continuum</a>.
+
+(And yes chidren, once apon a time Daddy did write real software)
+<p class="poweredbyperformancing">powered by <a href="http://performancing.com/firefox">performancing firefox</a></p>
