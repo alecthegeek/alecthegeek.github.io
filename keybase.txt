@@ -1,0 +1,70 @@
+https://keybase.io/alecthegeek
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://alecthegeek.github.io
+  * I am alecthegeek (https://keybase.io/alecthegeek) on keybase.
+  * I have a public key with fingerprint BF8A E8CC 9DA3 C1E3 C5BD  0CDD 3FE7 B98F 9BBB FC7C
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "client": {
+            "name": "keybase.io node.js client",
+            "version": "0.7.7"
+        },
+        "key": {
+            "fingerprint": "bf8ae8cc9da3c1e3c5bd0cdd3fe7b98f9bbbfc7c",
+            "host": "keybase.io",
+            "key_id": "3FE7B98F9BBBFC7C",
+            "uid": "5f59cd69857a1684b5dbc0c7b8301700",
+            "username": "alecthegeek"
+        },
+        "merkle_root": {
+            "ctime": 1426415658,
+            "hash": "f502eeeca432a0e88897d8186b7284c0a5ec583f124509949aeec672e672bbaee015c3af10e1ee98c8b8a6c46320a29cd9bc672884aa1a78c0d05867a4c4ba48",
+            "seqno": 177588
+        },
+        "service": {
+            "hostname": "alecthegeek.github.io",
+            "protocol": "https:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1426419913,
+    "expire_in": 157680000,
+    "prev": "bb1c8f3bb2bb0e6f00dd40d9a8aef96f84067ecb9f9c98351b6694f3507deb10",
+    "seqno": 25,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: GnuPG/MacGPG2 v2.0.22 (Darwin)
+Comment: GPGTools - http://gpgtools.org
+
+owFlUj1rVEEUXaMRFATzCwyvCyzLzHvzcScWygZXEQQLrZf5uLM7ZvPe5r230RAX
+FSzSaWVjYQoLwcLCRskvEP9AqoCVWvgPLJyJEQ0ODMzHueeec+99fuF0Z2HpyteP
+z17u/3x46vN307m7OP20k5nKbWerO5mdBCzbdCr1Bmar2TpuG91gL1TLZeWwd69Z
+PsZ0sy2sm1CVEUV6siezeTfBU7AP5QjraR0SV2Y8aARrldOFpVhYbhyxzhUepVHg
+lTHGW2kj5bhq2hNZsyPOYXDxtRhck30FA9Xv9wdrci3+zY4+uOfKOqGAS00FMMOd
+scRKAwWhkpAEbLA+tqQnaNsxjhDXk+QNrNcnOKyr6si3bUNCUZYLRrngEEXpZhzj
+PCc5IlrNilwTBAAlHVAQRubALNEcLYfC05xxohRTOoKFzDFuY+KFUG4L7SlBiqjA
+ggEtLBNFTnQeDSiT4ABMa6olWOIIByE1s8xoBtFFg5tlFcVJyQHm6V5vBYtJd6rc
+/wZ7o9COZ+Z3Iad11Va2mkTIuG2nzWo23+9m7fY0Bd1HMzymG5pQutjBf1tMY7YT
+pVGKFt0MH0xDjcOQEFwKIHGlRLiV+m6oBV8YE+0TFJ4Q5xhxSsdx8Ep4YERItEZ5
+ZRUUnBohFPMFJ9KhoeSv4ZxHnXoUOZswKnU7qzGb7w7OdJYWOmcXF9IMd86fu/hn
+sA9JZ+/Jzs3Ht9/fuLW88aM6WPEr78Kd3c7e0w+X166+eLN3/dXht81HX96+vnTg
+fwE=
+=0Izy
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/alecthegeek
+
