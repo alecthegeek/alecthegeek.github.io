@@ -36,7 +36,7 @@ If you do not have access to Git, but do have access to a UNIX style shell or Pe
 
 On Cygwin, OS X or Linux
 
-```bash
+```
 (printf "blob %s0" $(wc -c < $file);cat $file)|sha1sum -b | cut -d " " -f 1
 ```
 
@@ -44,14 +44,14 @@ On Cygwin, OS X or Linux
 
 On Solaris
 
-```bash
+```
 (printf  "blob %s0" $(wc -c < $file);cat $file)|digest -a sha1 | cut -d " " -f 1
 ```
 
 
 In Perl
 
-```perl
+```
 #!/usr/bin/env perl
 
 # See also Git::PurePerl at http://search.cpan.org/dist/Git-PurePerl/
