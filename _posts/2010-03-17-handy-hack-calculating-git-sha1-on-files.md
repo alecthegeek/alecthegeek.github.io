@@ -49,7 +49,7 @@ On Solaris
 ```
 
 
-In Perl
+Using Perl
 
 ```
 #!/usr/bin/env perl
@@ -72,3 +72,4 @@ $sha1->add($git_blob);
 
 print $sha1->hexdigest();
 ```
+
