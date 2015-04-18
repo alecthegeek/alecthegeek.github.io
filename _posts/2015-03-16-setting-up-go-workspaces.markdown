@@ -22,7 +22,7 @@ Automation to the rescue!
 Here are my examples:
 
 1. Install Go tools in a universal [location](https://gist.github.com/alecthegeek/3a48bb2bd3aa52a20306#file-go-install-tools) and have an easy way to install more.
-2. Use the [direnv](http://direnv.net/) utility to set up $GOPATH and $PATH correctly for each project.
+2. Install the [direnv](http://direnv.net/) utility to manage up $GOPATH and $PATH correctly for each project.
 3. Use a (rather large) bash script to setup new [projects](https://gist.github.com/alecthegeek/3a48bb2bd3aa52a20306#file-go-workspace), setup the direnv configuration and add new [packages]( https://gist.github.com/alecthegeek/3a48bb2bd3aa52a20306#file-go-package).
 
 
