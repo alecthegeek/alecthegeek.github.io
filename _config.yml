@@ -10,3 +10,5 @@ github_username:  alecthegeek
 
 # Build settings
 markdown: kramdown
+kramdown:
+  input: GFM
