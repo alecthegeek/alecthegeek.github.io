@@ -7,15 +7,17 @@ tags:
 status: publish
 type: post
 published: true
-meta:
-  _edit_last: '451289'
 ---
-If you are asked to chose numbers for a lottery here is a rather inelegant hack to create some entries. Assume you need x numbers from a range of a to b inclusive then run this program as
 
-<code>./lottery.pl  a b x</code>.
+If you are asked to chose numbers for a lottery here is a rather inelegant hack to create some entries.
+Assume you need x numbers from a range of a to b inclusive then run this program as
 
-``` perl
-#! /usr/bin/perl
+`./lottery.pl  a b x`
+
+Here is the script:
+
+```perl
+#!/usr/bin/perl
 #
 
 our %dup;
