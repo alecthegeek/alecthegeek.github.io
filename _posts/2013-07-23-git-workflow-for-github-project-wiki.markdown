@@ -6,7 +6,7 @@ comments: true
 categories: GitHub
 ---
 
-Update 2016-08-10:  I've been using this workflow a lot over the last 18 months and decided it'a easier to have two seperate repos (one for code and one for wiki documentation). This allows you to work on both sets of content in parallel rather than keep checking each branch out.
+Update 2016-08-10:  I've been using this workflow a lot over the last 18 months and decided it's easier to have two seperate repos (one for code and one for wiki documentation). This allows you to work on both sets of content in parallel rather than keep checking each branch out.
 
 So please read the following suggestions with that caveat.
 
