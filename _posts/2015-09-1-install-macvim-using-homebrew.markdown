@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Setting up MacVim for Go developement using Mac Homebrew"
+title: "Setting up MacVim for Go development using Mac Homebrew"
 date: 2015-09-01 10:02
 comments: true
 categories: vim, homebrew
@@ -32,8 +32,7 @@ so let's make sure we have the latest version
 
 `version=$(ls -1r /usr/local/Cellar/macvim/ | head -1)`
 
-Now we need a link into `/Applications` so that we can use Vim as an
-OS X application bundle.
+Now we need a link into `/Applications` so that we can use Vim as an OS X application bundle.
 
 1. Delete any old version
   `[[ -d /Applications/MacVim.app ]] && sudo rm -rf /Applications/MacVim.app`
@@ -133,4 +132,3 @@ So I need to run the Vim-go command `GoInstallBinaries` with GOBIN set to point 
 `GOPATH=/tmp GOBIN=$(go env GOROOT)/bin vim -u ~/.vimrc  -c ":GoInstallBinaries" -c ":qall" /tmp/src/$$.go`
 
 Now Go Hack and Profit!
-
