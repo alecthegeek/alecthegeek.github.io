@@ -48,9 +48,9 @@ for i in /etc/group /etc/passwd /etc/sudoers /etc/shadow ; do
           sed -rie '/\b'pi'\b/s/\b'pi'\b/'NEW_NAME'/g' $i
 done
 ```
-You then need to immediately rename the home directory `mv /home/pi /home/NEW_NAME`
+You then need to immediately rename the home directory with `mv /home/pi /home/NEW_NAME`
 
-You need privilege when doing this and I ma pretty paranoid about running a whole script under `sudo` so I run this as part of a larger setup script.
+You need privilege when doing this and I'm pretty paranoid about running a whole script under `sudo` so I run this as part of a larger setup script.
 
 ```shell
 cat <<'EOF' | sudo bash -s pi NEW_NAME /home/pi
@@ -75,6 +75,7 @@ N.B. This file should be checked after every update. The following sed script wi
 sudo sed -i -e 's/ fsck\.\(repair\|mode\)=[^ ]*//;
                 s/$/ fsck.mode=force fsck.repair=yes/' /boot/cmdline.txt
 ```
+
 # Consider installing some Python package management tools
 
 ```shell
