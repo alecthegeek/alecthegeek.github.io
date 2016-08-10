@@ -8,6 +8,8 @@ categories: Raspberry-Pi, programming
 
 For the last several years I have been writing scripts to simplify and automate the setup for Raspberry Pi single board computers using Raspian Linux (a Raspberry Pi specific port of Debian GNU/Linux). It's about time I distilled what I have learnt into some notes.
 
+Most of this material can also be found in my Pi [setup scripts](https://github.com/alecthegeek/CCHS_Raspian_for_IoT)
+
 # Keeping the OS up to date.
 
 Use the standard Debian `apt-get` utility. For example
@@ -88,8 +90,8 @@ It makes installing other packages (e.g [ino](http://inotool.org/) for Arduino) 
 
 # Using Node.js?
 
-Consider installing [nvm](https://github.com/creationix/nvm) 1st. The `curl` installer method works fine on the Pi.
+Many node packages are very fussy about which version of Node they use on the Pi. Consider installing [nvm](https://github.com/creationix/nvm) 1st. The `curl` installer method works fine on the Pi.
 
-# Wish you could have something like Dropbox on the by?
+# Wish you could have something like Dropbox on the Pi?
 
 Follow these [instructions](https://github.com/makerdayprojects/makerdayprojects.github.io/wiki/SetupNotes#cloud-storage-for-raspberry-pi)
