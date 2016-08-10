@@ -6,6 +6,9 @@ comments: true
 categories: GitHub
 ---
 
+Update 2016-08-10:  I've been using this workflow a lot over the last 18 months and decided it'a easier to have two seperate repos (one for code and one for wiki documentation). This allows you to work on both sets of content in parallel rather than keep checking each branch out.
+
+So please read the following suggestions with that caveat.
 
 When you create a project repo in GitHub you can get get a handy project wiki. This is a great place
 to add some documentation. However it's not part of your main project artifacts. You can either edit
@@ -48,10 +51,10 @@ repo and the master branch.
 git@github.com:me/kewlProject.wiki.git``
 
 7. ``git remote add upstream_wiki
-git@github.com:intermgr/kewlProject.wiki.git`` 
+git@github.com:intermgr/kewlProject.wiki.git``
 
 9. ``git pull upstream_wiki master:wiki``
-N.B. If the integration manager is using the same scheme as you then you should pull from their ``wiki`` branch as instead 
+N.B. If the integration manager is using the same scheme as you then you should pull from their ``wiki`` branch as instead
 
 10. ``git push test_wiki wiki:master``
 
