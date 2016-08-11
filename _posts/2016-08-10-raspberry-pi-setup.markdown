@@ -18,7 +18,7 @@ Use the standard Debian `apt-get` utility. For example
 
 ## How to get a reminder to update the OS
 
-There is a little know feature in apt-get that allow you to run triggers after apt-get update runs successfully. It's very poorly documented and only runs after an update, not the actual upgrade. None the less you can use this hook to create a timestamp to be checked each time the user logs in.
+There is a little know feature in apt-get that allow you to run triggers after `apt-get update` runs successfully. It's very poorly documented and only runs after an update, not the actual upgrade. None the less you can use this hook to create a timestamp to be checked each time the user logs in.
 
 Create a file in `/etc/apt/apt.conf.d/` with a name similar to `15update-stamp`. Place the following content in it
 
@@ -43,7 +43,7 @@ echo fi
 
 # Rename the Pi user account
 
-I find this a convenience, rather than creating a second account. However caution is required as the following three files must be all updated consistently: `/etc/group`; `/etc/passwd`; `/etc/sudoers`; and `/etc/shadow`. Failure will often mean your OS image is useless and you need to copy Raspian to the SD card again. The following shell script will help
+I find this a convenience, rather than creating a second account. However caution is required as the following four files must be all updated consistently: `/etc/group`; `/etc/passwd`; `/etc/sudoers`; and `/etc/shadow`. Failure will often mean your OS image is useless and you need to copy Raspian to the SD card again. The following shell script will help
 
 ```shell
 for i in /etc/group /etc/passwd /etc/sudoers /etc/shadow ; do
@@ -95,3 +95,32 @@ Many node packages are very fussy about which version of Node they use on the Pi
 # Wish you could have something like Dropbox on the Pi?
 
 Follow these [instructions](https://github.com/makerdayprojects/makerdayprojects.github.io/wiki/SetupNotes#cloud-storage-for-raspberry-pi)
+
+# Install Go programming language
+
+```shell
+INSTALL_VERSION=1.6.3
+OS=linux
+ARCH=armv6l
+
+if type go > /dev/null 2>&1 && [[ "$(go version 2>/dev/null)" =~ $INSTALL_VERSION ]] ;then
+  echo $(go version)  already installed at $(go env GOROOT)
+  exit 2
+fi
+
+[ -d /usr/local/go ] && sudo rm -rf /usr/local/go
+
+wget -O -  https://storage.googleapis.com/golang/go${INSTALL_VERSION}.${OS}-${ARCH}.tar.gz | sudo tar -xzC /usr/local  -f -
+
+
+echo '# Setup for golang' |sudo tee /etc/profile.d/golang.sh  > /dev/null
+echo 'PATH=$PATH:/usr/local/go/bin'|sudo tee -a /etc/profile.d/golang.sh > /dev/null
+
+source /etc/profile.d/golang.sh
+```
+
+I also like to install the Go toolchain in /usr/local/go/bin so I run this as well
+
+```
+sudo -i GOPATH=/tmp GOBIN=$(go env GOROOT)/bin go get -u golang.org/x/tools/cmd/...
+```
