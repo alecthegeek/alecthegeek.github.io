@@ -124,3 +124,11 @@ I also like to install the Go toolchain in /usr/local/go/bin so I run this as we
 ```
 sudo -i GOPATH=/tmp GOBIN=$(go env GOROOT)/bin go get -u golang.org/x/tools/cmd/...
 ```
+
+# You'll want some handy tools
+
+Feel free to replace these suggestions with your own preferences
+
+1. A decent editor. Vim is a good choice, `sudo apt-get install vim-gtk`.
+2. The ssh connection to a Pi can often be broken. Use [tmux](https://tmux.github.io/) to keep your login session active after your ssh session drops out.
+3. And you'll want a version control tool, `apt-get install git git-gui git-doc`
