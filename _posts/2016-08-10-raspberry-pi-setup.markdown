@@ -28,7 +28,7 @@ Each time the user logs in you can compare the current date to timestamp of the 
 
 Something in the user's `.profile` like this:
 
-```shell
+```sh
 # Check apt-get is run every few days
 no_of_days=7 # How often we want to prompt
 
@@ -45,7 +45,7 @@ echo fi
 
 I find this a convenience, rather than creating a second account. However caution is required as the following four files must be all updated consistently: `/etc/group`; `/etc/passwd`; `/etc/sudoers`; and `/etc/shadow`. Failure will often mean your OS image is useless and you need to copy Raspian to the SD card again. The following shell script will help
 
-```shell
+```sh
 for i in /etc/group /etc/passwd /etc/sudoers /etc/shadow ; do
           sed -rie '/\b'pi'\b/s/\b'pi'\b/'NEW_NAME'/g' $i
 done
@@ -54,7 +54,7 @@ You then need to immediately rename the home directory with `mv /home/pi /home/N
 
 You need privilege when doing this and I'm pretty paranoid about running a whole script under `sudo` so I run this as part of a larger setup script.
 
-```shell
+```sh
 cat <<'EOF' | sudo bash -s pi NEW_NAME /home/pi
  for i in /etc/group /etc/passwd /etc/sudoers /etc/shadow ; do
       sed -ri -e '/\b'$1'\b/s/\b'$1'\b/'$2'/g' $i
@@ -73,14 +73,14 @@ Add the text `fsck.mode=force fsck.repair=yes` to the end of `/boot/cmdline.txt`
 
 N.B. This file should be checked after every update. The following sed script will do this
 
-```shell
+```sh
 sudo sed -i -e 's/ fsck\.\(repair\|mode\)=[^ ]*//;
                 s/$/ fsck.mode=force fsck.repair=yes/' /boot/cmdline.txt
 ```
 
 # Consider installing some Python package management tools
 
-```shell
+```sh
 sudo apt-get install python-setuptools &&
 sudo easy_install pip &&
 sudo pip install virtualenv virtualenvwrapper
@@ -98,7 +98,7 @@ Follow these [instructions](https://github.com/makerdayprojects/makerdayprojects
 
 # Install Go programming language
 
-```shell
+```sh
 INSTALL_VERSION=1.6.3
 OS=linux
 ARCH=armv6l
