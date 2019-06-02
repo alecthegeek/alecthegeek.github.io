@@ -119,9 +119,9 @@ myHost2 := hostT_V2{
 }
 ```
 
-As an aside, not only do we get some notational convenience
-my using anonymous fields, we can get simpler json objects
-of we serialise our data structures. You will notice
+Not only do we get some notational convenience
+by using anonymous fields, we can get flatter json objects
+when we serialise our data structures. You will notice
 that the above examples have json annotations. So
 if I use ``"encoding/jon"`` module when we can get nice
 flat json object.
