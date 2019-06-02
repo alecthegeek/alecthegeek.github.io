@@ -71,8 +71,12 @@ myHost_V1.OperatingSystem = "WinNT"
 and we can use structure intialisation
 
 ```go
-myHost_V1 = hostT_1{network: networkDetailsT{IPPaddress: "192.168.1.27"},
-				 ServiceName: "smtp"}
+myHost_V1 = hostT_1{
+	network: networkDetailsT{
+		IPPaddress: "192.168.1.27"
+	},
+	ServiceName: "smtp"
+}
 ```
 (Notice how we use the field name of the embedded type field, `network`,
 in the intialisation)
@@ -97,11 +101,11 @@ provide a field name.
 
 ```go
 myHost_V2 = hostT_V2{
-				networkDetailsT: networkDetailsT{
-					IPPaddress: "192.168.1.27"
-				},
-				ServiceName: "smtp"
-			}
+	networkDetailsT: networkDetailsT{
+			IPPaddress: "192.168.1.27",
+	},
+	ServiceName: "smtp",
+}
 ```
 **We use the type name as the field name.**
 
