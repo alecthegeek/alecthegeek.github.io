@@ -92,16 +92,21 @@ var myHost_V2 hostT_V2
 myHost_V2.IPaddress = "100.10.78.9"
 myHost_V2.OperatingSystem = "WinNT"
 ```
-However intialisation needs a bit of extra magic
+However intialisation needs a bit of extra magic because we have to
+provide a field name.
 
 ```go
-myHost_V2 = hostT_V2{networkDetailsT: networkDetailsT{IPPaddress: "192.168.1.27"},
-				 ServiceName: "smtp"}
+myHost_V2 = hostT_V2{
+				networkDetailsT: networkDetailsT{
+					IPPaddress: "192.168.1.27"
+				},
+				ServiceName: "smtp"
+			}
 ```
+**We use the type name as the field name.**
 
-So we had to replace the field name with the type name.
-
-This is documented in the Go spec https://golang.org/ref/spec#Struct_types
+This is documented in the Go spec https://golang.org/ref/spec#Struct_types,
+but I can never remember the correct terms to find it.
 
 Of course you can avoid the having to name fields in the the intialisation if you provide all the
 values in the correct order
@@ -116,6 +121,23 @@ myHost2 := hostT_V2{
 	"accounts",
 	"Linux",
 	"Data Centre Rack 2",
+}
+```
+
+However I think it's helpful for people who are reading the code,
+probably you in six months time, to include the field names.
+
+```go
+myHost2 := hostT_V2{
+	networkDetailsT: networkDetailsT{
+		IPaddress:  "192.168.1.27",
+		HostName:   "server",
+		DomainName: "example.com",
+		Mac:        "00:25:96:12:34:56",
+	},
+	ServiceName:     "smtp",
+	OperatingSystem: "WinNT",
+	Location:        "Library",
 }
 ```
 
