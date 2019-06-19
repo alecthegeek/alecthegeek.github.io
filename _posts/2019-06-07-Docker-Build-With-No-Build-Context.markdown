@@ -6,22 +6,46 @@ comments: true
 categories: docker
 ---
 
+
+NOTE: Updated 20/June/2019 after a talk I gave at [PaperCut Software](https:) on building developer
+images. After feedback it was pretty obvious that the material assumed a lot of prior knowledge.
+I've added more details about the "classic" file layout for `..image build` before looking at the alternatives.
+
+You can find my slides and demo scripts from that talk [here](https://github.com/PaperCutSoftware/docker-images-for-development)
+
+
 When using the ``docker image build`` command the last argument is the build context.
-This is usually the location of the files needed during the build (e.g. build scripts).
+This is usually the location of the files needed during the build. For example
 
-Immediately the novice is presented with additional details such as creating the contents for a build
-context, how to use a Docker ignore file, and so on.
+* Dockerfile
+* [Docker ignore file](https://docs.docker.com/engine/reference/builder/#dockerignore-file)
+* Files needed for the image to work. e.g. startup intialisation scripts.
 
-However the ``-`` alternative (no build context) is usually not presented until much later, or even never at all.
+Developers often keep their source in the same directory as well.
 
-The ``-`` context works by reading the docker file
+So if the current default directory contains all the files in the build context the build is
+run as follows:
+
+```
+docker image build  -t my-dev-image:0.1 .
+```
+
+Note the `.` to specify the current working directory as the build context.
+
+Immediately the novice is presented with additional details about creating the contents of the build
+context, how to use a Docker ignore file, and so on. This is in addition to understanding
+how to create a Dockerfile, which can be complex in itself.
+
+However the `-` alternative (no build context) is usually not presented until much later, or even never at all.
+
+The `-` context works by reading the docker file
 from standard input, for instance
 
 ```sh
 docker image build -t myTestImage:0.1 - < Dockerfile
 ```
 
-I really believe that the ``-`` feature should
+I really believe that the `-` feature should
 be the *first* example novices see because it's much
 easier to understand.
 Build contexts and other details can come later.
