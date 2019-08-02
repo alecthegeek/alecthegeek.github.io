@@ -20,12 +20,13 @@ Sometimes we write
 
 The "and" (or the "or" etc) are called conjunctions.
 
-When python is being used to create human readable text from lists it would be very
-nice to add the conjunctions correctly.
+When [Python](https://www.python.org/) (which has some excellent text processing features)
+is being used to create human readable text from lists it would be excellent
+to add the conjunctions correctly.
 
-With Python [index](https://docs.python.org/3/reference/expressions.html?highlight=slice#subscriptions)
+Python [index](https://docs.python.org/3/reference/expressions.html?highlight=slice#subscriptions)
 and [slicing](https://docs.python.org/3/reference/expressions.html?highlight=slice#slicings)
-operations on lists this turns our to be easy.
+operations on lists makes this easy.
 
 ```python
 def listWithConjunctions(l, conjunction = "and"):
@@ -63,5 +64,4 @@ Remember that we have checked previously and there are at least two items in the
 
 1. `l[:-1]` is equivelant to taking a slice with `l[0:-1]`. The slice starts at the 1st element (index 0) and goes the end the list __minus one__. The index `-1` is shorthand for the last element and slices exclude the last item.
 To prove this try `[0,1,2,3][:-1]` at the Python prompt. You should see the result `[0, 1, 2]`.
-2. We then convert that list in a string with wth comma speprarors using the `str.join()` method. Again you can test this at the Python prompt with
-`
+2. We then convert that list in a string with wth comma separators using the `str.join()` method. Again you can test this at the Python prompt with `', '.join(['0','1','2','3'][:-1])`
