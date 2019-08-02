@@ -56,3 +56,12 @@ def listWithConjunctions(l, conjunction = "and"):
     return f"{', '.join(l[:-1])} {conjunction} {l[-1]}"
     
 ```
+
+The important piece of code is `return f"{', '.join(l[:-1])} {conjunction} {l[-1]}"`. How does it work?
+
+Remember that we have checked previously and there are at least two items in the list.
+
+1. `l[:-1]` is equivelant to taking a slice with `l[0:-1]`. The slice starts at the 1st element (index 0) and goes the end the list __minus one__. The index `-1` is shorthand for the last element and slices exclude the last item.
+To prove this try `[0,1,2,3][:-1]` at the Python prompt. You should see the result `[0, 1, 2]`.
+2. We then convert that list in a string with wth comma speprarors using the `str.join()` method. Again you can test this at the Python prompt with
+`
