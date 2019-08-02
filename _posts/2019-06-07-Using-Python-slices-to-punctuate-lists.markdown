@@ -55,7 +55,6 @@ def listWithConjunctions(l, conjunction = "and"):
         return ''.join(l) # Convert list of 0 or 1 items to string
 
     return f"{', '.join(l[:-1])} {conjunction} {l[-1]}"
-    
 ```
 
 The important piece of code is `f"{', '.join(l[:-1])} {conjunction} {l[-1]}"`. How does it work?
@@ -66,4 +65,4 @@ Remember that we have checked previously and there are at least two items in the
 2. `l[:-1]` is equivelant to taking a slice with `l[0:-1]`. The slice starts at the 1st element (index 0) and goes the end the list __minus one__. The index `-1` is shorthand for the last element and slices exclude the last item.
 To prove this try `[0,1,2,3][:-1]` at the Python prompt. You should see the result `[0, 1, 2]`.
 3. We then convert that list in a string with wth comma separators using the `str.join()` method. Again you can test this at the Python prompt with `', '.join(['0','1','2','3'][:-1])`
-4. Finally we add the conjunction and final list item with `{conjunction} l[-1]` (note the difference between `l[-1]` and `l[:-1]`)
+4. Finally we add the conjunction and final list item with `{conjunction} l[-1]`. Note the difference between `l[-1]` (the last element) and `l[:-1]` (a slice with all elements except the last one)
