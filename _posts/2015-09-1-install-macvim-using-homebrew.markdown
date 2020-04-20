@@ -23,7 +23,7 @@ I also use [Homebrew](http://brew.sh/) to manage my software packages, and if yo
 
 ## MacVim Installation
 
-The first thing is that you should install the version of MacVim that comes with Homebrew, _not_ [Cask](http://caskroom.io/). So assuming you already have Homebrew set up
+The first thing is that you should install the version of MacVim that comes with Homebrew, _not_ [Cask](https://github.com/Homebrew/homebrew-cask). So assuming you already have Homebrew set up
 
 `brew install macvim`
 
