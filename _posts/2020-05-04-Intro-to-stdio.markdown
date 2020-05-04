@@ -179,10 +179,12 @@ The answer is yes, but use with some care.
 
     c. Detecting eof is a little not as elegant (zero length input is the eof marker)
 
-See example `reverseTextLines3.py` for the details of using `input()` in this fashion.
+See example [`reverseTextLines3.py`](https://github.com/alecthegeek/Intro2/blob/master/stdio/reverseTextLines3.py)
+for the details of using `input()` in this fashion.
 
 It makes sense to use input when the program will only read an exact number of lines of input and ideally of if it detects is it reading
-from a terminal. Example `reverseTextLines3.1.py` is a probably reasonable compromise.
+from a terminal. Example [`reverseTextLines3.1.py`](https://github.com/alecthegeek/Intro2/blob/master/stdio/reverseTextLines3.1.py)
+is a reasonable compromise.
 
 ## So what use cases does standard I/O?
 
