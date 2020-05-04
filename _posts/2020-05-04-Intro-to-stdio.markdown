@@ -8,11 +8,14 @@ which is very confusing when you first see it.
 
 This article aims to show you what Standard I/O means and how to do it.
 
-We are going to use Python 3 and the Bash shell -- but this works identically
+We are going to use Python 3 and the Bash shell -- but standard I/O works identically
 in PowerShell and the concepts are the same in other programing languages.
+
 However, because I am using Python, we are going to
 see some Python specific features that help make file I/O more pleasant to use. The examples
 try to be as simple as possible and easy to understand, but also complete and correct.
+You will find it useful to look at the source code at the same time as reading this explanation
+and you can find the source code [here](https://github.com/alecthegeek/Intro2/tree/master/stdio)
 
 Note that standard I/O is generally used in text based programs, that we run
 from the terminal for instance. Some GUI programs also use standard I/O, but it is less
@@ -21,9 +24,9 @@ common.
 ## What advantages does standard I/O give us?
 
 1. Because standard I/O is set up for us by the calling program (for example the Bash shell),
-we don't have to do that job
+it makes life simpler for the developer
 
-2. It gives programs a standard way to communicate with each other, more on that later.
+2. It gives programs a standard way to communicate with each other.
 
 ## Reading from the keyboard and writing to the screen
 
