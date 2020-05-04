@@ -136,7 +136,7 @@ The `<` and `>` characters are redirection symbols and attach `stdin` to `myFile
 All the previous work of opening and closing the correct files is handled for us and we need no extra code in our
 Python script to manage files.
 
-<!-- Show image-->
+![A program connected to standard I/O](https://raw.githubusercontent.com/alecthegeek/Intro2/master/stdio/stdioDiagram.png A program connected to stdio)
 
 We are not going to discuss shell redirection here, but you need to be aware of how the `<`, `>` and `|` are used.
 You may find this [article](https://www.tldp.org/LDP/abs/html/io-redirection.html) useful.
@@ -173,8 +173,13 @@ from a terminal. Example `reverseTextLines3.1.py` is a probably reasonable compr
 
 Using standard I/O we can now do a couple of things
 
-1. Create a general tool that can be used with other tools in a piple line (see the example script `aPipeline`)
+1. Create a general tool that can be used with other tools in a pipeline (see the example script `aPipeline`)
+
+![Using a pipeline](https://raw.githubusercontent.com/alecthegeek/Intro2/master/stdio/pipesDiagram.png Using a pipeline)
+
 2. Use standard I/O as a simple "API" that allows other programs to make use of our code as a module (see the web application `apiExample/app.py` )
+
+![Using Standard I/O as an API](https://raw.githubusercontent.com/alecthegeek/Intro2/master/stdio/APIcalls.png Using stdio as an API mechanism)
 
 In addition standard I/O makes it easier for the developer with simple needs -- no need to manage file resources because it's all done for you
 before your code starts
