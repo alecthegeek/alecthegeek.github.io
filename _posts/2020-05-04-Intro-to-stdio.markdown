@@ -192,7 +192,8 @@ Using standard I/O we can now do a couple of things
 
 ![Using a pipeline](https://raw.githubusercontent.com/alecthegeek/Intro2/master/stdio/pipesDiagram.png "Using a pipeline")
 
-2. Use standard I/O as a simple "API" that allows other programs to make use of our code as a module (see the web application `apiExample/app.py` )
+2. Use standard I/O as a simple "API" that allows other programs to make use of our code as a module
+(see the web application [`APIviaSTDIO.py`](https://github.com/alecthegeek/Intro2/blob/master/stdio/APIviaSTDIO.py) )
 
 ![Using Standard I/O as an API](https://raw.githubusercontent.com/alecthegeek/Intro2/master/stdio/APIcalls.png "Using stdio as an API mechanism")
 
