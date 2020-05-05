@@ -1,4 +1,12 @@
-# Beginners Introduction to using Standard I/O
+---
+layout: post
+title: Beginners Introduction to using Standard I/O
+tags: [python, leantocode]
+status: publish
+type: post
+published: true
+meta: {}
+---
 
 ## Introduction
 
