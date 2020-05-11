@@ -12,12 +12,12 @@ meta: {}
 
 If you are a novice programmer sometimes you hear phrases like "read from standard input"
 or read things similar "write to stdout",
-which is very confusing when you first see it.
+which is very confusing when you come across it.
 
-This article aims to show you what Standard I/O means and how to do it.
+This article aims to show you what Standard Input/Output (I/O) means and how to use it.
 
 We are going to use Python 3 and the Bash shell -- but standard I/O works identically
-in PowerShell and the concepts are the same in other programing languages.
+in PowerShell and the file I/O concepts are the same in other programing languages.
 
 However, because I am using Python, we are going to
 see some Python specific features that help make file I/O more pleasant to use. The examples
@@ -25,27 +25,32 @@ try to be as simple as possible and easy to understand, but also complete and co
 You will find it useful to look at the source code at the same time as reading this explanation
 and you can find the example code [here](https://github.com/alecthegeek/Intro2/tree/master/stdio)
 
-Note that standard I/O is generally used in text based programs, that we run
-from the terminal for instance. Some GUI programs also use standard I/O, but it is less
+Note that standard I/O is generally used in text based programs that we run
+from the terminal, for instance. Some GUI programs also use standard I/O, but it is less
 common.
 
 ## What advantages does standard I/O give us?
 
 1. Because standard I/O is set up for us by the calling program (for example the Bash shell),
-it makes life simpler for the developer
+then there is less work for the developer to do
 
-2. It gives programs a standard way to communicate with each other.
+2. It gives programs a standard way to communicate with each other, so that they can be used in something bigger.
+
+Let's build up our understanding through a series of examples.
 
 ## Reading from the keyboard and writing to the screen
 
 Let's go back to basics...
 
 The program [`reverseTextLines0.py`](https://github.com/alecthegeek/Intro2/blob/master/stdio/reverseTextLines0.py)
-uses the commonly used `input()` and `print()` functions
-to: read a line of text from the keyboard; and then write a line of text back to the screen. If you have written
-a couple of simple Python programs you should have already seen these functions.
+uses the common functions `input()` and `print()` for I/O:
 
-In between the `input()` and `print()` a local function (called `revLine()`) reverses the words in the line.
+* Read a line of text from the keyboard
+* Write a line of text back to the screen.
+
+If you have written a couple of simple Python programs you should have already seen these functions.
+
+In between the `input()` and `print()` a local function (called `revLine()`) reverses the word order in the line.
 
 If we run it we can type in a phrase and see some output:
 
@@ -60,7 +65,7 @@ However this program has a couple of problems:
 1. It only handles a single line of input text
 
 2. It's default behaviour reads from the keyboard and writes to the screen, which can be problem if we have a file of input or
-need to save the output
+need to save the output for later use.
 
 Let's solve those problems
 
@@ -71,48 +76,89 @@ The programs `reverseTextLines1.*.py` use a file based approach instead.
 Look at [`reverseTextLines1.beta1.py`](https://github.com/alecthegeek/Intro2/blob/master/stdio/reverseTextLines1.beta1.py):
 
 1. It opens two files, one for input and one for output (`myFile` and `yourFile`))
+
+```python
+infile  = open("myFile", "r")
+outfile = open("yourFile", "w")
+```
+
 2. It uses `while` loop to read each line in turn so that we can process as much input as needed
-3. After processing all the input it cleans up by closing the files. Note we should clear up even if the program terminates with an error
-4. During the file reading the program has to check to see if it's reached the end of the input (end of file => `eof`)
+3. During the file reading the program has to check to see if it's reached the end of the input (end of file => `eof`)
 
-So that fixed the previous problems, but this solution is still hard work.
+```python
 
-1. The file names are hard coded, so we either have to make sure we always use the same file names, or change
-the source code each time to use the relevant file names
-2. It's hard to make this part of something bigger because it's not a very general solution
-3. We have to do a fair bit of housekeeping (opening and closing files, checking for end of file)
+line = infile.readline()
 
-Python has some additional sugar to help with problem number 3. If you look at
+while line != '':  # '' is end of file
+
+    ... #Process Content in line variable
+
+    line = infile.readline()
+```
+
+4. After processing all the input it cleans up by closing the files. Note we should clear up even if the program terminates with an error.
+
+```python
+infile.close()
+outfile.close()
+```
+
+So that fixed the previous problems, but it could be improved:
+
+1. The file names are hard coded<sup>[1](#parameters)</sup>,
+so we either have to make sure we always use the same file names,
+or change the source code each time to use the relevant file names
+
+2. It's hard to make this part of something bigger because it's not a general solution
+
+3. As developers we have to do a fair bit of housekeeping, i.e. opening and closing files, and checking for end of file.
+
+Python has some additional sugar to help reduce the developer workload:
+
+### Checking for end of file
+
+If you look at
 [`reverseTextLines1.beta2.py`](https://github.com/alecthegeek/Intro2/blob/master/stdio/reverseTextLines1.beta2.py) we can use the file
 iterator to manage the reading of content and handle the eof checking:
 
 ```python
 for line in infile:
+    ... #Process Content in line variable
 ```
 
-Python also has a context feature (using the `with` keyword) so that any resources we use (in this case open files)
+This much simpler than the while loop and eof checking above
+
+### Closing files automatically
+
+Python also has a [context manager](https://docs.python.org/3/reference/datamodel.html#context-managers) feature (the `with` keyword) so that any resources we use (in this case open files)
 are released when we leave the context (no matter if there is an error, or the processing completely normally).
-Now we don't need to close the files explicitly (see [`reverseTextLines1.py`](https://github.com/alecthegeek/Intro2/blob/master/stdio/reverseTextLines1.py):
+
+Now we don't need to close the files explicitly (see [`reverseTextLines1.py`](https://github.com/alecthegeek/Intro2/blob/master/stdio/reverseTextLines1.py)):
 
 ```python
 with open("myFile",   "r") as infile, \
      open("yourFile", "w") as outfile:
 
     for line in infile:
+        ... #Process Content in line variable
 ```
 
 But the file names are still hard coded and it's not generally useful 😒.
+We'll fix that next.
 
-As an aside, in the above examples the `revLine()` function has been improved by adding a call to
-[`strip()`](https://github.com/alecthegeek/Intro2/blob/8a23321a4ea535a4231c548f672ead418cd87ae8/stdio/reverseTextLines1.beta1.py#L5)
+As an aside, in the above examples the `revLine()` function has been improved by adding a call to [`strip()`](https://github.com/alecthegeek/Intro2/blob/8a23321a4ea535a4231c548f672ead418cd87ae8/stdio/reverseTextLines1.beta1.py#L5)
 which cleans up the string before further processing -- more information about
-`str.strip()` [here](https://docs.python.org/3.7/library/stdtypes.html#str.strip)
+`str.strip()` [here](https://docs.python.org/3.7/library/stdtypes.html#str.strip).
+Removing the whitespace like this makes the text easier to process in a generic
+fashion (no unexpected end of line characters for instance). However we need
+to add the end of line character back on (in the correct location) before we write
+the content (e.g. `...+ "\n" # Text needs "\n"`).
 
 ## Using Standard I/O
 
-Standard I/O solves problem number 3.
+Standard I/O solves our final problem, file names are hard coded.
 
-When a program starts it get access to certain pre defined I/O streams. At a minimum these are:
+The important thing to know is that when a program starts it get access to certain pre defined I/O streams. At a minimum these are:
 
 1. Standard Input (`stdin`)
 2. Standard Output (`stdout`)
@@ -124,9 +170,9 @@ They might be called something different on your system, and you might get a few
 but these are the ones we are going to work with here and Python follows this convention on every system.
 
 Programs can read from `stdin`, or write to `stdout` or `stderr`, without any extra work. They exist at startup and don't need to be closed.
-We just need to take care not to read of the end of the input on `stdin`.
+We just need to take care not to read beyond the end of `stdin`.
 
-In program [`reverseTextLines2.beta1.py`](https://github.com/alecthegeek/Intro2/blob/master/stdio/reverseTextLines1.beta1.py)
+In program [`reverseTextLines2.beta1.py`](https://github.com/alecthegeek/Intro2/blob/master/stdio/reverseTextLines2.beta1.py)
 you can see this in action. We are still reading and writing to files, but we
 are just accepting that there is input for us to read with `for line in stdin:` and we can write to a file with `stdout.write()`.
 
@@ -151,13 +197,12 @@ the default keyboard and screen. For example
 ./reverseTextLines2.beta1.py < myFile > anotherFile
 ```
 
-The `<` and `>` characters are redirection symbols and attach `stdin` to `myFile` and `stdout` to `anotherFile`.
+The `<` and `>` characters are [redirection](https://en.wikipedia.org/wiki/Redirection_(computing)) symbols and attach `stdin` to `myFile` and `stdout` to `anotherFile`.
 All the previous work of opening and closing the correct files is handled for us and we need no extra code in our
 Python script to manage files.
 
-
-We are not going to discuss shell redirection here, but you need to be aware of how the `<`, `>` and `|` are used.
-You may find this [article](https://www.tldp.org/LDP/abs/html/io-redirection.html) useful.
+We are not going to discuss the details of using shell redirection here, but you need to be aware of how the `<`, `>` and `|` are used.
+You may find this [article](https://www.tldp.org/LDP/abs/html/io-redirection.html) useful if you are using the Bash shell, and this [article](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_redirection) if you use PowerShell.
 
 The stderr file stream is obviouly useful for reporting errors, but it's also useful to report information
 that should not be part of normal program output -- such as final summary information and status messages.
@@ -166,13 +211,13 @@ that should not be part of normal program output -- such as final summary inform
 shows this in practice -- it keeps track of the number of text records it processes but
 does not pollute the output stream with that information. Instead the final record count is printed to stdout.
 
-Again as an aside, I have taken the `revLine()` function out of the main program file and created a new module
+Note that I have taken the `revLine()` function out of the main program file and created a new module
 called [`textutils`](https://github.com/alecthegeek/Intro2/blob/master/stdio/textutils.py). This makes the main
-program file simpler and means I can use the `revLine()` in multiple programs without repeating the code.
+program file simpler and means that `revLine()` can be used in multiple programs without repeating the code each time.
 
 ## Where do `print()` and `input()` fit in the world of standard I/O?
 
-In example 0 `input()` and `print()` were used for the keyboard and screen? Can and should we still use them?
+In example 0 `input()` and `print()` were used for the keyboard and screen? Can, and should, we still use them?
 
 The answer is yes, but use with some care.
 
@@ -180,25 +225,27 @@ The answer is yes, but use with some care.
 
 2. Using `input()` can be awkward:
 
-    a. `input()`  provides an optional prompt, which does not make sense unless you know you program is interactive
+    a. `input()`  provides an optional prompt, which does not make sense unless you know your program is interactive
     (you can detect this by checking the value of `sys.stdout.isatty()`)
 
     b. It only reads a single line of input and does not have an iterator
 
-    c. Detecting eof is a little not as elegant (zero length input is the eof marker)
+    c. Detecting eof is not as elegant (zero length input is the eof marker)
 
 See example [`reverseTextLines3.py`](https://github.com/alecthegeek/Intro2/blob/master/stdio/reverseTextLines3.py)
 for the details of using `input()` in this fashion.
 
-It makes sense to use input when the program will only read an exact number of lines of input and ideally of if it detects is it reading
-from a terminal. Example [`reverseTextLines3.1.py`](https://github.com/alecthegeek/Intro2/blob/master/stdio/reverseTextLines3.1.py)
-is a reasonable compromise.
+It makes sense to use input when the program will only read an exact number of lines of input, or if it detects is it reading
+from a terminal and needs to provide a prompt.
 
-## So what use cases does standard I/O?
+<!--Example [`reverseTextLines3.1.py`](https://github.com/alecthegeek/Intro2/blob/master/stdio/reverseTextLines3.1.py)
+shows .-->
+
+## So what use cases does standard I/O support?
 
 Using standard I/O we can now do a couple of things
 
-1. Create a general tool that can be used with other tools in a pipeline (see the example script `aPipeline`)
+1. Create a general tool that can be used with other tools in a pipeline (see the example script [`aPipeline`](https://github.com/alecthegeek/Intro2/blob/master/stdio/aPipeline))
 
 ![Using a pipeline](https://raw.githubusercontent.com/alecthegeek/Intro2/master/stdio/pipesDiagram.png "Using a pipeline")
 
@@ -214,3 +261,5 @@ before your code starts
 
 There are other handy ways to get information into a program using command line switches and environnement values. We can also return error codes when
 our program finishes. But these are stories for another day...
+
+<a name="parameters">1</a>: You can support run time file names using command line parameters, but that is a story for another day.
