@@ -243,7 +243,8 @@ shows all these concepts in one place.
 
 Using standard I/O we can now do a couple of things
 
-1. Create a general tool that can be used with other tools in a pipeline (see the example script [`aPipeline`](https://github.com/alecthegeek/Intro2/blob/master/stdio/aPipeline))
+1. Create a general tool that can be used with other tools in a pipeline
+(see the example script [`aPipeline`](https://github.com/alecthegeek/Intro2/blob/master/stdio/aPipeline))
 
     ![Using a pipeline](https://raw.githubusercontent.com/alecthegeek/Intro2/master/stdio/pipesDiagram.png "Using a pipeline")
 
