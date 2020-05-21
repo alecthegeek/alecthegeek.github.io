@@ -76,7 +76,7 @@ The next set of examples use a file based approach instead.
 
 Look at [`reverseTextLines1.beta1.py`](https://github.com/alecthegeek/Intro2/blob/master/stdio/reverseTextLines1.beta1.py):
 
-1. Two files are opended, one for input and one for output (`myFile` and `yourFile`)
+1. Two files are opened, one for input and one for output (`myFile` and `yourFile`)
 
     ```python
     infile  = open("myFile", "r")
