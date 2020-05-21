@@ -10,15 +10,15 @@ meta: {}
 
 ## Introduction
 
-If you are a novice programmer sometimes you hear phrases like "read from standard input"
+If you are a novice programmer sometimes you sometimes hear phrases like "read from standard input",
 or read things similar to "write to stdout",
-which is very confusing when you come across it.
+which is very confusing when you first come across it.
 
-This article aims to show you what Standard Input/Output (I/O) is, and how to use it.
+This article aims to show you what Standard Input/Output (`stdio`) is, and how to use it.
 
-We are going to use Python 3 and the Bash shell -- but standard I/O works identically
+We are going to use Python 3 and the Bash shell -- but stdio identically
 in PowerShell and the file I/O concepts are the same in other programing languages.
-However, because I am using Python, we are going to
+However, because I am using Python, we are also going to
 see some Python specific features that help make file I/O more pleasant to use.
 
 These examples
@@ -26,17 +26,18 @@ try to be as simple as possible and easy to understand, but also complete and co
 You will find it useful to look at the source code at the same time as reading this explanation
 and you can find the example code [here](https://github.com/alecthegeek/Intro2/tree/master/stdio)
 
-Note that standard I/O is generally used in text based programs, that we run
+Note that standard I/O is frequently used in text based programs, that we run
 from the terminal for instance. Some GUI programs also use standard I/O, but it is less
 common.
 
 ## What advantages does standard I/O give us?
 
-1. Because standard I/O is set up for us by the calling program (for example the Bash shell),
-then there is less work for the developer to do
-
-2. It gives programs a standard way to communicate with each other,
+1. The biggest benefit is that programs have a standard way to communicate with each other,
 so that they can be used as part of something bigger.
+They can become components in larger, custom, solutions
+
+2. Because standard I/O is set up for us by the calling program at run time (for example the Bash shell),
+then there is less work for the developer to do to handle I/O in a standard way.
 
 Let's build up our understanding through a series of examples.
 
@@ -75,40 +76,48 @@ The next set of examples use a file based approach instead.
 
 Look at [`reverseTextLines1.beta1.py`](https://github.com/alecthegeek/Intro2/blob/master/stdio/reverseTextLines1.beta1.py):
 
-1. It opens two files, one for input and one for output (`myFile` and `yourFile`)
-```python
-infile  = open("myFile", "r")
-outfile = open("yourFile", "w")
-```
-2. It uses `while` loop to read each line in turn so that we can process as much input as needed
-3. During the file reading the program has to check to see if it's reached the end of the input (end of file => `eof`)
-```python
+1. Two files are opended, one for input and one for output (`myFile` and `yourFile`)
 
-line = infile.readline()
+    ```python
+    infile  = open("myFile", "r")
+    outfile = open("yourFile", "w")
+    ```
 
-while line != '':  # '' is end of file
+2. It uses a `while` loop to read each line in turn so that we can process each line of input text as needed
 
-    ... #Process Content in line variable
+3. During the file reading operation, the program has to check to see if it's reached the end of the input (end of file => `eof`)
+
+    ```python
 
     line = infile.readline()
-```
-4. After processing all the input it releases resources by closing the files. Note that developers should careful to clear up (close files in this case), even if the program terminates with an error.
-```python
-infile.close()
-outfile.close()
-```
+
+    while line != '':  # '' is end of file
+
+        ... #Process Content in line variable
+
+        line = infile.readline()
+    ```
+
+4. After processing all the input it releases resources by closing the files.
+Note that developers should careful to clear up (close files in this case), even if the program terminates with an error
+
+    ```python
+    infile.close()
+    outfile.close()
+    ```
 
 So that fixed the previous problems, but it could be improved:
 
-1. The file names are hard coded<sup>[1](#parameters)</sup>,
+1. The file names are hard coded,
 so we either have to make sure we always use the same file names,
-or change the source code each time to use the relevant file names
+change the source code each time to use the relevant file names or add additional code to
+get the file names at run time using command line arguments<sup>[1](#parameters)</sup>.
 
 2. It's hard to make this part of something bigger because it's not a general solution
 
-3. As developers we have to do a fair bit of housekeeping, i.e. opening and closing files, and checking for end of file.
+3. As developers we have to do a fair bit of housekeeping, i.e. opening and closing files, and checking for end of file (eof).
 
-Python has some additional sugar to help reduce the developer workload:
+Python has some additional sugar to help reduce the developer workload and the amount of housekeeping we need to do:
 
 ### Checking for end of file
 
@@ -138,8 +147,6 @@ with open("myFile",   "r") as infile, \
         ... #Process Content in line variable
 ```
 
-But the file names are still hard coded and it's not generally useful 😒.
-We'll fix that next.
 
 As an aside, in the above examples the `revLine()` function has been improved by adding a call to [`strip()`](https://github.com/alecthegeek/Intro2/blob/8a23321a4ea535a4231c548f672ead418cd87ae8/stdio/reverseTextLines1.beta1.py#L5)
 which cleans up the string before further processing -- more information about
@@ -155,14 +162,14 @@ Standard I/O solves our final problem, file names are hard coded.
 
 The important thing to know is that when a program starts it get access to certain pre defined I/O streams. At a minimum these are:
 
-1. Standard Input (`stdin`)
-2. Standard Output (`stdout`)
-3. Standard Error (`stderr`)
+1. Standard Input (`stdin`, also refereed to as file handle 0)
+2. Standard Output (`stdout` or file handle 1)
+3. Standard Error (`stderr` file handle 2)
 
 ![A program connected to standard I/O](https://raw.githubusercontent.com/alecthegeek/Intro2/master/stdio/stdioDiagram.png "A program connected to stdio")
 
 Programs can read from `stdin`, or write to `stdout` or `stderr`, without any extra work. They exist at startup and don't need to be closed.
-We just need to take care not to read beyond the end of `stdin`.
+We just need to take care not to read beyond the end of the input.
 
 In program [`reverseTextLines2.beta1.py`](https://github.com/alecthegeek/Intro2/blob/master/stdio/reverseTextLines2.beta1.py)
 you can see this in action. We are still reading and writing to files, but we
@@ -180,7 +187,7 @@ Goodbye from Venus
 Venus from Goodbye
 ```
 
-Each second line is the output -- `Earth and Mars from Hello` and `Venus from Goodbye`
+Each second line is the output -- `Earth and Mars from Hello` and `Venus from Goodbye` in this example.
 
 **BUT** when you start a program from the terminal you can tell your shell to attach the programs to specific files or devices, rather than
 the default keyboard and screen. For example
@@ -207,13 +214,13 @@ Note that I have also moved the `revLine()` function out of the main program fil
 called [`textutils`](https://github.com/alecthegeek/Intro2/blob/master/stdio/textutils.py). This makes the main
 program file simpler and allows `revLine()` to be used in multiple programs without repeating the code each time.
 
-## Where do `print()` and `input()` fit in the world of standard I/O?
+## Where do print() and input() fit in the world of standard I/O?
 
 In [example 0](https://github.com/alecthegeek/Intro2/blob/master/stdio/reverseTextLines0.py) `input()` and `print()` were used for the keyboard and screen? Can, and should, we still use them?
 
 The answer is yes, but use with some care.
 
-1. Using `print()` works well, but does behave slightly differently to `stdout.write()`, so consult the fine [manual](https://docs.python.org/3/library/functions.html#print)
+1. Using `print()` works well, but does behave slightly differently to `stdout.write()`, so read the fine [manual](https://docs.python.org/3/library/functions.html#print)
 
 2. Using `input()` can be awkward:
 
@@ -227,23 +234,23 @@ The answer is yes, but use with some care.
 See example [`reverseTextLines3.py`](https://github.com/alecthegeek/Intro2/blob/master/stdio/reverseTextLines3.py)
 for the details of using `input()` in this fashion.
 
-It makes sense to use input when the program will only read an exact number of lines of input, or if it detects is it reading
-from a terminal and needs to provide a prompt.
+Generally it only makes sense to use `input()` when you are sure your program will only ever read input typed by a user.
 
-<!--Example [`reverseTextLines3.1.py`](https://github.com/alecthegeek/Intro2/blob/master/stdio/reverseTextLines3.1.py)
-shows .-->
+So the final example [`reverseTextLines3.1.py`](https://github.com/alecthegeek/Intro2/blob/master/stdio/reverseTextLines3.1.py)
+shows all these concepts in one place.
 
 ## So what use cases does standard I/O support?
 
 Using standard I/O we can now do a couple of things
 
 1. Create a general tool that can be used with other tools in a pipeline (see the example script [`aPipeline`](https://github.com/alecthegeek/Intro2/blob/master/stdio/aPipeline))
-![Using a pipeline](https://raw.githubusercontent.com/alecthegeek/Intro2/master/stdio/pipesDiagram.png "Using a pipeline")
+
+    ![Using a pipeline](https://raw.githubusercontent.com/alecthegeek/Intro2/master/stdio/pipesDiagram.png "Using a pipeline")
 
 2. Use standard I/O as a simple "API" that allows other programs to make use of our code as a module
 (see this example web application [`APIviaSTDIO.py`](https://github.com/alecthegeek/Intro2/blob/master/stdio/APIviaSTDIO.py))
 
-![Using Standard I/O as an API](https://raw.githubusercontent.com/alecthegeek/Intro2/master/stdio/APIcalls.png "Using stdio as an API mechanism")
+    ![Using Standard I/O as an API](https://raw.githubusercontent.com/alecthegeek/Intro2/master/stdio/APIcalls.png "Using stdio as an API mechanism")
 
 In addition standard I/O makes it easier for the developer with simple needs -- no need to manage file resources because it's all done for you
 before your code starts
@@ -253,4 +260,4 @@ before your code starts
 There are other handy ways to get information into a program using command line switches and environnement values. We can also return error codes when
 our program finishes. But these are stories for another day...
 
-<a name="parameters">1</a>: You can support run time file names using command line parameters.
+<a name="parameters">1</a>: More about using command line arguments in a future post.
