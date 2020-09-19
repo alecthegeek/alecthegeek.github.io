@@ -16,15 +16,15 @@ which is very confusing when you first come across it.
 
 This article aims to show you what Standard Input/Output (`stdio`) is, and how to use it.
 
-We are going to use Python 3 and the Bash shell -- but stdio identically
-in PowerShell and the file I/O concepts are the same in other programing languages.
+We are going to use Python 3 and the Bash shell -- but stdio works identically
+in PowerShell and Windows, and the file I/O concepts are the same in other programing languages.
 However, because I am using Python, we are also going to
 see some Python specific features that help make file I/O more pleasant to use.
 
 These examples
 try to be as simple as possible and easy to understand, but also complete and correct.
 You will find it useful to look at the source code at the same time as reading this explanation
-and you can find the example code [here](https://github.com/alecthegeek/Intro2/tree/master/stdio)
+and you can find the example code [here](https://github.com/alecthegeek/Intro2/tree/trunk/stdio)
 
 Note that standard I/O is frequently used in text based programs, that we run
 from the terminal for instance. Some GUI programs also use standard I/O, but it is less
@@ -45,7 +45,7 @@ Let's build up our understanding through a series of examples.
 
 Let's go back to basics...
 
-The program [`reverseTextLines0.py`](https://github.com/alecthegeek/Intro2/blob/master/stdio/reverseTextLines0.py)
+The program [`reverseTextLines0.py`](https://github.com/alecthegeek/Intro2/blob/trunk/stdio/reverseTextLines0.py)
 uses the well known functions `input()` and `print()` for I/O:
 
 * Read a line of text from the keyboard
@@ -74,7 +74,7 @@ Let's solve those problems
 
 The next set of examples use a file based approach instead.
 
-Look at [`reverseTextLines1.beta1.py`](https://github.com/alecthegeek/Intro2/blob/master/stdio/reverseTextLines1.beta1.py):
+Look at [`reverseTextLines1.beta1.py`](https://github.com/alecthegeek/Intro2/blob/trunk/stdio/reverseTextLines1.beta1.py):
 
 1. Two files are opened, one for input and one for output (`myFile` and `yourFile`)
 
@@ -122,7 +122,7 @@ Python has some additional sugar to help reduce the developer workload and the a
 ### Checking for end of file
 
 If you look at
-[`reverseTextLines1.beta2.py`](https://github.com/alecthegeek/Intro2/blob/master/stdio/reverseTextLines1.beta2.py) we use the file
+[`reverseTextLines1.beta2.py`](https://github.com/alecthegeek/Intro2/blob/trunk/stdio/reverseTextLines1.beta2.py) we use the file
 iterator to manage the reading of content **and** handle eof checking:
 
 ```python
@@ -137,7 +137,7 @@ This much simpler than the while loop and eof checking in previous examples.
 Python also has a [context manager](https://docs.python.org/3/reference/datamodel.html#context-managers) feature (the `with` keyword) so that any resources we use (in this case open files)
 are released when we leave the context (no matter if there is an error, or the processing completes normally).
 
-Now we don't need to close the files explicitly (see [`reverseTextLines1.py`](https://github.com/alecthegeek/Intro2/blob/master/stdio/reverseTextLines1.py)):
+Now we don't need to close the files explicitly (see [`reverseTextLines1.py`](https://github.com/alecthegeek/Intro2/blob/trunk/stdio/reverseTextLines1.py)):
 
 ```python
 with open("myFile",   "r") as infile, \
@@ -158,7 +158,7 @@ the content (e.g. `... + "\n"`).
 
 ## Using Standard I/O
 
-Standard I/O solves our final problem, file names are hard coded.
+Standard I/O solves our final problem, namely file names are hard coded.
 
 The important thing to know is that when a program starts it get access to certain pre defined I/O streams. At a minimum these are:
 
@@ -166,12 +166,12 @@ The important thing to know is that when a program starts it get access to certa
 2. Standard Output (`stdout` or file handle 1)
 3. Standard Error (`stderr` file handle 2)
 
-![A program connected to standard I/O](https://raw.githubusercontent.com/alecthegeek/Intro2/master/stdio/stdioDiagram.png "A program connected to stdio")
+![A program connected to standard I/O](https://raw.githubusercontent.com/alecthegeek/Intro2/trunk/stdio/stdioDiagram.png "A program connected to stdio")
 
 Programs can read from `stdin`, or write to `stdout` or `stderr`, without any extra work. They exist at startup and don't need to be closed.
 We just need to take care not to read beyond the end of the input.
 
-In program [`reverseTextLines2.beta1.py`](https://github.com/alecthegeek/Intro2/blob/master/stdio/reverseTextLines2.beta1.py)
+In program [`reverseTextLines2.beta1.py`](https://github.com/alecthegeek/Intro2/blob/trunk/stdio/reverseTextLines2.beta1.py)
 you can see this in action. We are still reading and writing to files, but we
 are just accepting that there is input for us to read with `for line in stdin:` and we can write to a file with `stdout.write()`.
 
@@ -206,17 +206,17 @@ You may find this [article](https://www.tldp.org/LDP/abs/html/io-redirection.htm
 The stderr file stream is obviouly useful for reporting errors, but it's also useful to report information
 that should not be part of normal program output -- such as final summary information and status messages.
 
-[`reverseTextLines2.py`](https://github.com/alecthegeek/Intro2/blob/master/stdio/reverseTextLines2.py)
+[`reverseTextLines2.py`](https://github.com/alecthegeek/Intro2/blob/trunk/stdio/reverseTextLines2.py)
 shows this in practice -- it keeps track of the number of text records it processes but
 does not pollute the output stream with that information. Instead the final record count is printed to stderr.
 
 Note that I have also moved the `revLine()` function out of the main program file and created a new module
-called [`textutils`](https://github.com/alecthegeek/Intro2/blob/master/stdio/textutils.py). This makes the main
+called [`textutils`](https://github.com/alecthegeek/Intro2/blob/trunk/stdio/textutils.py). This makes the main
 program file simpler and allows `revLine()` to be used in multiple programs without repeating the code each time.
 
 ## Where do print() and input() fit in the world of standard I/O?
 
-In [example 0](https://github.com/alecthegeek/Intro2/blob/master/stdio/reverseTextLines0.py) `input()` and `print()` were used for the keyboard and screen? Can, and should, we still use them?
+In [example 0](https://github.com/alecthegeek/Intro2/blob/trunk/stdio/reverseTextLines0.py) `input()` and `print()` were used for the keyboard and screen? Can, and should, we still use them?
 
 The answer is yes, but use with some care.
 
@@ -231,12 +231,12 @@ The answer is yes, but use with some care.
 
     c. Detecting eof is not as elegant (zero length input is the eof marker)
 
-See example [`reverseTextLines3.py`](https://github.com/alecthegeek/Intro2/blob/master/stdio/reverseTextLines3.py)
+See example [`reverseTextLines3.py`](https://github.com/alecthegeek/Intro2/blob/trunk/stdio/reverseTextLines3.py)
 for the details of using `input()` in this fashion.
 
 Generally it only makes sense to use `input()` when you are sure your program will only ever read input typed by a user.
 
-So the final example [`reverseTextLines3.1.py`](https://github.com/alecthegeek/Intro2/blob/master/stdio/reverseTextLines3.1.py)
+So the final example [`reverseTextLines3.1.py`](https://github.com/alecthegeek/Intro2/blob/trunk/stdio/reverseTextLines3.1.py)
 shows all these concepts in one place.
 
 ## So what use cases does standard I/O support?
@@ -244,14 +244,14 @@ shows all these concepts in one place.
 Using standard I/O we can now do a couple of things
 
 1. Create a general tool that can be used with other tools in a pipeline
-(see the example script [`aPipeline`](https://github.com/alecthegeek/Intro2/blob/master/stdio/aPipeline))
+(see the example script [`aPipeline`](https://github.com/alecthegeek/Intro2/blob/trunk/stdio/aPipeline))
 
-    ![Using a pipeline](https://raw.githubusercontent.com/alecthegeek/Intro2/master/stdio/pipesDiagram.png "Using a pipeline")
+    ![Using a pipeline](https://raw.githubusercontent.com/alecthegeek/Intro2/trunk/stdio/pipesDiagram.png "Using a pipeline")
 
 2. Use standard I/O as a simple "API" that allows other programs to make use of our code as a module
-(see this example web application [`APIviaSTDIO.py`](https://github.com/alecthegeek/Intro2/blob/master/stdio/APIviaSTDIO.py))
+(see this example web application [`APIviaSTDIO.py`](https://github.com/alecthegeek/Intro2/blob/trunk/stdio/APIviaSTDIO.py))
 
-    ![Using Standard I/O as an API](https://raw.githubusercontent.com/alecthegeek/Intro2/master/stdio/APIcalls.png "Using stdio as an API mechanism")
+    ![Using Standard I/O as an API](https://raw.githubusercontent.com/alecthegeek/Intro2/trunk/stdio/APIcalls.png "Using stdio as an API mechanism")
 
 In addition standard I/O makes it easier for the developer with simple needs -- no need to manage file resources because it's all done for you
 before your code starts
